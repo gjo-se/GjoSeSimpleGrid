@@ -18,6 +18,7 @@
 #include <Mql5Book\Timer.mqh>
 #include <Mql5Book\Indicators.mqh>
 #include <Trade\DealInfo.mqh>
+#include <GjoSe\Tester\CustomOptimisation.mqh>
 
 #include "Globals.mqh"
 #include "..\\Actions\\InitializeActions.mqh"

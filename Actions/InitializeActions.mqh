@@ -44,7 +44,9 @@ void initializeIndicatorsAction() {
    int sglSLOW = InpIND_GjoSeTrenddetector_SGL_SLOW_Period;
 
    tickvolumeHandle = iVolumes(Symbol(), PERIOD_M1, VOLUME_TICK);
-   sglTrendHandle = iCustom(Symbol(), InpIND_GjoSeTrenddetector_SGL_Timeframe, "GjoSe/IND_GjoSeTrenddetector", sglFast, sglMiddle, sglSLOW);
+
+   sglTrendHandle = iCustom(Symbol(), InpIND_GjoSeTrenddetector_SGL_Timeframe, "GjoSe\\GjoSeTrendDecetor\\IND_GjoSeTrenddetector", sglFast, sglMiddle, sglSLOW, InpMinTrendStrength, InpMinFastMiddleOffset, InpMinMiddleSlowOffset);
+   if(sglTrendHandle==INVALID_HANDLE) Print("Expert: iCustom call: Error code=",GetLastError());
 }
 //+------------------------------------------------------------------+
 
