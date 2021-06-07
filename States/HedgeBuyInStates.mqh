@@ -24,7 +24,7 @@ long getHedgeBuyInSignalState() {
          positionIsTriggerState(positionTicket) == true &&
          triggerIsHedgedState(positionTicket) == false &&
          hedgeIsHedgedState(positionTicket) == false &&
-         sglTrendBuffer[barShift] == UP_TREND
+         sglTrendBuffer[barShift] > InpMinTrendStrength
       ) {
          returnValue = positionTicket;
       }
@@ -51,7 +51,7 @@ long getHedgeHedgeBuyInSignalState() {
          positionIsHedgeState(positionTicket) == true &&
          hedgeIsHedgedState(positionTicket) == false &&
          positionIsHedgeHedgeState(positionTicket) == false &&
-         sglTrendBuffer[barShift] == UP_TREND
+         sglTrendBuffer[barShift] > InpMinTrendStrength
       ) {
          returnValue = positionTicket;
       }

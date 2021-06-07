@@ -19,9 +19,12 @@ input bool                 InpShowDashboardOnVisualMode = false;
 
 sinput string              IND_Trend;    // ---------- IND_GjoSeTrenddetector ---------
 input ENUM_TIMEFRAMES      InpIND_GjoSeTrenddetector_SGL_Timeframe = PERIOD_M1;
-input int                  InpIND_GjoSeTrenddetector_SGL_FAST_Period = 18;
-input int                  InpIND_GjoSeTrenddetector_SGL_MIDDLE_Period = 150;
-input int                  InpIND_GjoSeTrenddetector_SGL_SLOW_Period = 280;
+input int                  InpIND_GjoSeTrenddetector_SGL_FAST_Period = 10;
+input int                  InpIND_GjoSeTrenddetector_SGL_MIDDLE_Period = 100;
+input int                  InpIND_GjoSeTrenddetector_SGL_SLOW_Period = 200;
+input double               InpMinTrendStrength = 30;
+input double               InpMinFastMiddleOffset = 30;
+input double               InpMinMiddleSlowOffset = 30;
 
 sinput string              SL_TP;    // ---------- SL & TP ---------
 input int                  InpStopLoss = 0;

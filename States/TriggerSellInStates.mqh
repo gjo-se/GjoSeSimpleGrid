@@ -58,7 +58,7 @@ bool getTrendSellInFilter() {
    bool filter = false;
    int barShift = 0;
 
-   if(sglTrendBuffer[barShift] != DOWN_TREND) {
+   if(sglTrendBuffer[barShift] > InpMinTrendStrength *- 1) {
       filter = true;
    }
 
