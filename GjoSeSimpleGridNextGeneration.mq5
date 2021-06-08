@@ -9,6 +9,7 @@
 
    1.0.0 Initial version
    1.3.0 optimize Trend
+   1.3.2 add H3
 
    ===============
 
@@ -25,7 +26,7 @@
 #property copyright   "2021, GjoSe"
 #property link        "http://www.gjo-se.com"
 #property description "GjoSe SimpleGrid"
-#define   VERSION "1.3.0"
+#define   VERSION "1.3.2"
 #property version VERSION
 #property strict
 
