@@ -11,8 +11,6 @@ const int      NOT_FOUND = -1;
 const int      TICK_VOLUME_BUFFER = 0;
 const int      SGL_TREND_BUFFER = 0;
 
-const int      UP_TREND = 1;
-const int      DOWN_TREND = -1;
 const int      ROTATION_AREA = 0;
 
 const string   NEXT_BUY_LEVEL = "nextBuyLevel_";
@@ -25,6 +23,8 @@ const string   CLOSED_BY_EQUITY_DD_OUT = "byEquityDD_Out_";
 const string   CLOSED_BY_EQUITY_DD_OUT_STOP = "byEquityDD_OutAndStop";
 const string   CLOSED_BY_GROUP_PROFIT = "byGroupProfitTBy_";
 const string   CLOSED_BY_POSITION_PROFIT = "byPositionProfitTBy_";
+const string   CLOSED_BY_H2_ROTATION = "byH2RotationAresTBy_";
+const string   CLOSED_BY_H2_OPOSITE_TREND = "byH2OpositeTrendTBy_";
 
 const int      INITIAL_VALUE = 0;
 

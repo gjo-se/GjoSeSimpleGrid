@@ -24,7 +24,7 @@
 #include "..\\Actions\\InitializeActions.mqh"
 #include "..\\Actions\\CleanArraysActions.mqh"
 #include "..\\Actions\\HandleArraysActions.mqh"
-#include "..\\Actions\\CloseActions.mqh"
+#include "..\\Actions\\CloseAction.mqh"
 #include "..\\Actions\\OpenActions.mqh"
 #include "..\\Actions\\HandleTriggerActions.mqh"
 #include "..\\Actions\\HandleHedgeActions.mqh"
@@ -36,7 +36,8 @@
 
 #include "..\\Actions\\SecurityActions.mqh"
 
-#include "..\\States\\PositionStates.mqh"
+#include "..\\States\\PositionState.mqh"
+#include "..\\States\\PositionHelper.mqh"
 #include "..\\States\\SecurityStates.mqh"
 #include "..\\States\\TriggerBuyInStates.mqh"
 #include "..\\States\\TriggerSellInStates.mqh"
