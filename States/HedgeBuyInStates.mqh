@@ -61,4 +61,26 @@ long getHedgeHedgeBuyInSignalState() {
 
 }
 //+------------------------------------------------------------------+
+long getH3BuyInSignalState() {
 
+   long positionTicket = 0;
+   int barShift = 0;
+   long returnValue = 0;
+
+   int positionTicketsId = 0;
+   for(positionTicketsId; positionTicketsId < ArraySize(positionTickets); positionTicketsId++) {
+      positionTicket = positionTickets[positionTicketsId];
+
+      if(
+         PositionType(positionTicket) == ORDER_TYPE_SELL &&
+         positionIsHedgeHedgeState(positionTicket) == true &&
+         hedgeHedgeIsHedgedState(positionTicket) == false &&
+         sglTrendBuffer[barShift] > InpMinTrendStrength
+      ) {
+         returnValue = positionTicket;
+      }
+   }
+
+   return(returnValue);
+
+}

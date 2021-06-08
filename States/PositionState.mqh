@@ -116,3 +116,20 @@ bool positionIsHedgeHedgeState(long pPositionTicket) {
    return(false);
 }
 //+------------------------------------------------------------------+
+
+bool hedgeHedgeIsHedgedState(long pPositionTicket) {
+
+   int positionGroupId = getPositionGroupIdByPositionTicket(pPositionTicket);
+
+   if(positionGroupId != NOT_FOUND) {
+      if(
+         pPositionTicket == positionGroups[positionGroupId][POSITIONGROUP_ID_HEDGE_HEDGE_TICKET] &&
+         (positionGroups[positionGroupId][POSITIONGROUP_ID_H3_TICKET] != 0 ||
+          positionGroups[positionGroupId][POSITIONGROUP_ID_H3_ENTRY] != 0)
+      ) {
+         return(true);
+      }
+   }
+
+   return(false);
+}

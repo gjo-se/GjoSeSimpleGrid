@@ -21,6 +21,8 @@ void cleanPositionGroupsArrayAction() {
    long nextHedgeLevel = 0;
    long hedgeHedgeTicket = 0;
    long nextHedgeHedgeLevel = 0;
+   long h3Ticket = 0;
+   long nextH3Level = 0;
    int arrayRange = 0;
 
    ArrayCopy(positionGroupsTmp, positionGroups);
@@ -37,6 +39,8 @@ void cleanPositionGroupsArrayAction() {
       nextHedgeLevel = positionGroupsTmp[groupId][POSITIONGROUP_ID_HEDGE_ENTRY];
       hedgeHedgeTicket = positionGroupsTmp[groupId][POSITIONGROUP_ID_HEDGE_HEDGE_TICKET];
       nextHedgeHedgeLevel = positionGroupsTmp[groupId][POSITIONGROUP_ID_HEDGE_HEDGE_ENTRY];
+      h3Ticket = positionGroupsTmp[groupId][POSITIONGROUP_ID_H3_TICKET];
+      nextH3Level = positionGroupsTmp[groupId][POSITIONGROUP_ID_H3_ENTRY];
 
       if(   positionIsOpenState(triggerTicket) == true ||
             positionIsOpenState(triggerTicket2) == true ||
@@ -55,6 +59,8 @@ void cleanPositionGroupsArrayAction() {
          positionGroups[arrayRange][POSITIONGROUP_ID_HEDGE_ENTRY] = nextHedgeLevel;
          positionGroups[arrayRange][POSITIONGROUP_ID_HEDGE_HEDGE_TICKET] = hedgeHedgeTicket;
          positionGroups[arrayRange][POSITIONGROUP_ID_HEDGE_HEDGE_ENTRY] = nextHedgeHedgeLevel;
+         positionGroups[arrayRange][POSITIONGROUP_ID_H3_TICKET] = h3Ticket;
+         positionGroups[arrayRange][POSITIONGROUP_ID_H3_ENTRY] = nextH3Level;
       }
    }
 
