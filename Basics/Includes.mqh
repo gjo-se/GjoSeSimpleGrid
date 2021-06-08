@@ -25,10 +25,12 @@
 #include "..\\Actions\\CleanArraysActions.mqh"
 #include "..\\Actions\\HandleArraysActions.mqh"
 #include "..\\Actions\\CloseAction.mqh"
-#include "..\\Actions\\OpenActions.mqh"
+#include "..\\Actions\\OpenBuyActions.mqh"
+#include "..\\Actions\\OpenSellActions.mqh"
 #include "..\\Actions\\HandleTriggerActions.mqh"
 #include "..\\Actions\\HandleHedgeActions.mqh"
 #include "..\\Actions\\HandleHedgeHedgeActions.mqh"
+#include "..\\Actions\\HandleH3Actions.mqh"
 #include "..\\Actions\\BreakevenActions.mqh"
 #include "..\\Actions\\DiverseActions.mqh"
 

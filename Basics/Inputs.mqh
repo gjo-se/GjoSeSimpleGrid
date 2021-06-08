@@ -56,15 +56,18 @@ input int                  InpEndMinute = 0;
 input bool                 InpUseLocalTime = false;
 
 sinput string              HE;    // ---------- Hedge ---------
-input double               InpHedgeMulti = 3;
-input double               InpHedgeHedgeMulti = 4;
+input double               InpHedgeMulti = 1;
+input double               InpHedgeHedgeMulti = 2;
+input double               InpH3Multi = 1;
 
 
 input string               InpHedgeCommentTriggertBy = "HTBy_";
 input string               InpHedgeCommentReEntryTriggertBy = "ReHTBy_";
 input string               InpHedgeHedgeCommentTriggertBy = "HHTBy_";
+input string               InpH3CommentTriggertBy = "H3TBy_";
 input string               InpHedgeHedgeCommentReEntryTriggertBy = "ReHHTBy_";
 input string               InpTriggerCommentReEntryTriggertBy = "ReTTBy_";
+input string               InpH3CommentReEntryTriggertBy = "ReH3TBy_";
 
 sinput string              SEC;    // ---------- Security ---------
 input double               InpMaxAbsoluteEquity = 10000;

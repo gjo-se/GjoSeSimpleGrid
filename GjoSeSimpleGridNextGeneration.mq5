@@ -9,6 +9,7 @@
 
    1.0.0 Initial version
    1.3.0 optimize Trend
+   1.3.3 add H3
 
    ===============
 
@@ -25,7 +26,7 @@
 #property copyright   "2021, GjoSe"
 #property link        "http://www.gjo-se.com"
 #property description "GjoSe SimpleGrid"
-#define   VERSION "1.3.0"
+#define   VERSION "1.3.3"
 #property version VERSION
 #property strict
 
@@ -80,6 +81,8 @@ void OnTick() {
    long triggerTicketForHedgeSellIn = 0;
    long triggerTicketForHedgeHedgeBuyIn = 0;
    long triggerTicketForHedgeHedgeSellIn = 0;
+   long triggerTicketForH3BuyIn = 0;
+   long  triggerTicketForH3SellIn = 0;
 
    bool tradeOnlyOnNewBar = checkTradeOnlyOnNewBar(InpTradeOnNewBar, InpNewBarTimeframe);
 
@@ -101,7 +104,7 @@ void OnTick() {
 
       closePositionGroupInProfit();
       closePositionInProfit();
-      closeH2OnOpositeTrend();
+      //closeH2OnOpositeTrend();
 
       cleanPositionTicketsArrayAction();
       cleanPositionGroupsArrayAction();
@@ -147,13 +150,22 @@ void OnTick() {
 
          //HedgeHedge
          triggerTicketForHedgeHedgeBuyIn = getHedgeHedgeBuyInSignalState();
-
          if(triggerTicketForHedgeHedgeBuyIn > 0) openHedgeHedgeBuyOrderAction(triggerTicketForHedgeHedgeBuyIn);
 
          triggerTicketForHedgeHedgeSellIn = getHedgeHedgeSellInSignalState();
          if(triggerTicketForHedgeHedgeSellIn > 0) openHedgeHedgeSellOrderAction(triggerTicketForHedgeHedgeSellIn);
 
          handleHedgeHedgeAction();
+
+         // H3
+         triggerTicketForH3BuyIn = getH3BuyInSignalState();
+         if(triggerTicketForH3BuyIn > 0) openH3BuyOrderAction(triggerTicketForH3BuyIn);
+
+         triggerTicketForH3SellIn = getH3SellInSignalState();
+         if(triggerTicketForH3SellIn > 0) openH3SellOrderAction(triggerTicketForH3SellIn);
+
+         handleH3Action();
+
 
          if(getAbsoluteEquityDD(EQUITY_DD_PERCENT, InpMaxAbsoluteEquity) > InpMaxEquityDD_OutAndStop) {
             closeAllPositions(CLOSED_BY_EQUITY_DD_OUT_STOP);
@@ -168,7 +180,7 @@ void OnTick() {
 
 
          //Print("--------------------------OnTick----positionGroups---------------");
-         //printArrayTwoDimensions(positionGroups, ArrayRange(positionGroups, 0), 9);
+         //printArrayTwoDimensions(positionGroups, ArrayRange(positionGroups, 0), 11);
          //Print("--------------------------OnTick----dealGroups---------------");
          //printArrayTwoDimensions(dealGroups, ArrayRange(dealGroups, 0), 20);
          //Print("--------------------------OnTick----dealGroupProfit---------------");
