@@ -14,9 +14,9 @@
 *.js              text
 *.json            text
 *.md              text
-*.mq4             text
-*.mq5             text
-*.mqh             text
+*.mq4             text working-tree-encoding=UTF-8 eol=CRLF
+*.mq5             text working-tree-encoding=UTF-8 eol=CRLF
+*.mqh             text working-tree-encoding=UTF-8 eol=CRLF
 *.mql             text
 *.php             text
 *.phtml           text
@@ -29,10 +29,6 @@
 
 # set content encodings
 *                 encoding=UTF-8
-/mql4/            encoding=CP1252
-/mql5/            encoding=CP1251
-*.md              encoding=UTF-8
-
 
 # checkout with Windows line-endings (not yet supported by EGit)
 *.dsp             text eol=crlf

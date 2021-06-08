@@ -30,7 +30,7 @@
 #include "..\\Actions\\HandleTriggerActions.mqh"
 #include "..\\Actions\\HandleHedgeActions.mqh"
 #include "..\\Actions\\HandleHedgeHedgeActions.mqh"
-#include "..\\Actions\\HandleH3Actions.mqh"
+#include "..\\Actions\\HandleH3Action.mqh"
 #include "..\\Actions\\BreakevenActions.mqh"
 #include "..\\Actions\\DiverseActions.mqh"
 
