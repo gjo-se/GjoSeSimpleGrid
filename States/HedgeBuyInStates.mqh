@@ -47,7 +47,7 @@ long getHedgeHedgeBuyInSignalState() {
       
       if(
          PositionType(positionTicket) == ORDER_TYPE_SELL &&
-         positionIsTriggerState(positionTicket) == false &&
+         //positionIsTriggerState(positionTicket) == false &&
          positionIsHedgeState(positionTicket) == true &&
          hedgeIsHedgedState(positionTicket) == false &&
          positionIsHedgeHedgeState(positionTicket) == false &&
