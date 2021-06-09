@@ -20,17 +20,17 @@
 #include <Trade\DealInfo.mqh>
 #include <GjoSe\Tester\CustomOptimisation.mqh>
 
-#include "Globals.mqh"
+#include "Global.mqh"
 #include "..\\Actions\\InitializeActions.mqh"
 #include "..\\Actions\\CleanArraysActions.mqh"
-#include "..\\Actions\\HandleArraysActions.mqh"
+#include "..\\Actions\\HandleArraysAction.mqh"
 #include "..\\Actions\\CloseAction.mqh"
 #include "..\\Actions\\OpenBuyActions.mqh"
 #include "..\\Actions\\OpenSellActions.mqh"
 #include "..\\Actions\\HandleTriggerActions.mqh"
-#include "..\\Actions\\HandleHedgeActions.mqh"
-#include "..\\Actions\\HandleHedgeHedgeActions.mqh"
-#include "..\\Actions\\HandleH3Actions.mqh"
+#include "..\\Actions\\HandleHedgeAction.mqh"
+#include "..\\Actions\\HandleHedgeHedgeAction.mqh"
+#include "..\\Actions\\HandleH3Action.mqh"
 #include "..\\Actions\\BreakevenActions.mqh"
 #include "..\\Actions\\DiverseActions.mqh"
 
