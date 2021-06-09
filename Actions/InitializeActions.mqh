@@ -39,13 +39,16 @@ void initializeArraysAction() {
 //|                                                                  |
 //+------------------------------------------------------------------+
 void initializeIndicatorsAction() {
-   int sglFast = InpIND_GjoSeTrenddetector_SGL_FAST_Period;
-   int sglMiddle = InpIND_GjoSeTrenddetector_SGL_MIDDLE_Period;
-   int sglSLOW = InpIND_GjoSeTrenddetector_SGL_SLOW_Period;
+   ENUM_TIMEFRAMES gwlTimeFrame = InpIND_GjoSeTrenddetector_GWL_Timeframe;
+   ENUM_SGL_GWL    sgl_gwl_type = InpIND_GjoSeTrenddetector_SGL_GWL_Type;
+   int gwlFast = InpIND_GjoSeTrenddetector_GWL_FAST_Period;
+   int gwlMiddle = InpIND_GjoSeTrenddetector_GWL_MIDDLE_Period;
+   int gwlSLOW = InpIND_GjoSeTrenddetector_GWL_SLOW_Period;
+  
 
    tickvolumeHandle = iVolumes(Symbol(), PERIOD_M1, VOLUME_TICK);
 
-   sglTrendHandle = iCustom(Symbol(), InpIND_GjoSeTrenddetector_SGL_Timeframe, "GjoSe\\GjoSeTrendDecetor\\IND_GjoSeTrenddetector", sglFast, sglMiddle, sglSLOW, InpMinTrendStrength, InpMinFastMiddleOffset, InpMinMiddleSlowOffset);
+   sglTrendHandle = iCustom(Symbol(), InpIND_GjoSeTrenddetector_GWL_Timeframe, "GjoSe\\GjoSeTrendDecetor\\IND_GjoSeTrenddetector", sgl_gwl_type, gwlTimeFrame, gwlFast, gwlMiddle, gwlSLOW, InpMinTrendStrength, InpMinFastMiddleOffset, InpMinMiddleSlowOffset);
    if(sglTrendHandle==INVALID_HANDLE) Print("Expert: iCustom call: Error code=",GetLastError());
 }
 //+------------------------------------------------------------------+

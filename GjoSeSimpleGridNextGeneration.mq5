@@ -10,6 +10,7 @@
    1.0.0 Initial version
    1.3.0 optimize Trend
    1.3.3 add H3
+   1.4.0 add GWL
 
    ===============
 
@@ -65,7 +66,7 @@ int OnInit() {
 // mit anderen NewBar aufräumen
 bool  NewBar() {
 
-   datetime currentTime =  iTime(Symbol(), Period(), 0);
+   datetime currentTime =  iTime(Symbol(), PERIOD_M1, 0);
    bool     result      =  (currentTime != lastBarTime);
    lastBarTime   =   currentTime;
 
@@ -99,12 +100,13 @@ void OnTick() {
 
    if(NewBar() == true) {
 
-      Bar.Update(Symbol(), Period());
+      Bar.Update(Symbol(), PERIOD_M1);
 
 
       closePositionGroupInProfit();
-      closePositionInProfit();
-      //closeH2OnOpositeTrend();
+      //closePositionInProfit();
+      //closeH1OnSameTrend();
+      //closeOnRotationArea();
 
       cleanPositionTicketsArrayAction();
       cleanPositionGroupsArrayAction();
@@ -130,41 +132,41 @@ void OnTick() {
             positionTicket = positionTickets[positionTicketId];
 
             // hier wird der Trigger nicht mehr aussortiert!
-            if(InpUseBreakEven == true) setBreakevenAction(positionTicket);
+            //if(InpUseBreakEven == true) setBreakevenAction(positionTicket);
          }
 
          //Trigger
          if(getTriggerBuyInSignalState() == true) openBuyOrderAction();
          if(getTriggerSellInSignalState() == true) openSellOrderAction();
 
-         handleTriggerAction();
+         //handleTriggerAction();
 
          //Hedge
-         triggerTicketForHedgeBuyIn = getHedgeBuyInSignalState();
-         if(triggerTicketForHedgeBuyIn > 0) openHedgeBuyOrderAction(triggerTicketForHedgeBuyIn);
+//         triggerTicketForHedgeBuyIn = getHedgeBuyInSignalState();
+//         if(triggerTicketForHedgeBuyIn > 0) openHedgeBuyOrderAction(triggerTicketForHedgeBuyIn);
+//
+//         triggerTicketForHedgeSellIn = getHedgeSellInSignalState();
+//         if(triggerTicketForHedgeSellIn > 0) openHedgeSellOrderAction(triggerTicketForHedgeSellIn);
 
-         triggerTicketForHedgeSellIn = getHedgeSellInSignalState();
-         if(triggerTicketForHedgeSellIn > 0) openHedgeSellOrderAction(triggerTicketForHedgeSellIn);
-
-         handleHedgeAction();
+         //handleHedgeAction();
 
          //HedgeHedge
-         triggerTicketForHedgeHedgeBuyIn = getHedgeHedgeBuyInSignalState();
-         if(triggerTicketForHedgeHedgeBuyIn > 0) openHedgeHedgeBuyOrderAction(triggerTicketForHedgeHedgeBuyIn);
-
-         triggerTicketForHedgeHedgeSellIn = getHedgeHedgeSellInSignalState();
-         if(triggerTicketForHedgeHedgeSellIn > 0) openHedgeHedgeSellOrderAction(triggerTicketForHedgeHedgeSellIn);
-
-         handleHedgeHedgeAction();
+//         triggerTicketForHedgeHedgeBuyIn = getHedgeHedgeBuyInSignalState();
+//         if(triggerTicketForHedgeHedgeBuyIn > 0) openHedgeHedgeBuyOrderAction(triggerTicketForHedgeHedgeBuyIn);
+//
+//         triggerTicketForHedgeHedgeSellIn = getHedgeHedgeSellInSignalState();
+//         if(triggerTicketForHedgeHedgeSellIn > 0) openHedgeHedgeSellOrderAction(triggerTicketForHedgeHedgeSellIn);
+//
+//         handleHedgeHedgeAction();
 
          // H3
-         triggerTicketForH3BuyIn = getH3BuyInSignalState();
-         if(triggerTicketForH3BuyIn > 0) openH3BuyOrderAction(triggerTicketForH3BuyIn);
-
-         triggerTicketForH3SellIn = getH3SellInSignalState();
-         if(triggerTicketForH3SellIn > 0) openH3SellOrderAction(triggerTicketForH3SellIn);
-
-         handleH3Action();
+//         triggerTicketForH3BuyIn = getH3BuyInSignalState();
+//         if(triggerTicketForH3BuyIn > 0) openH3BuyOrderAction(triggerTicketForH3BuyIn);
+//
+//         triggerTicketForH3SellIn = getH3SellInSignalState();
+//         if(triggerTicketForH3SellIn > 0) openH3SellOrderAction(triggerTicketForH3SellIn);
+//
+//         handleH3Action();
 
 
          if(getAbsoluteEquityDD(EQUITY_DD_PERCENT, InpMaxAbsoluteEquity) > InpMaxEquityDD_OutAndStop) {

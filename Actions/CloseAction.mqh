@@ -133,7 +133,7 @@ void closePositionInProfit() {
    }
 }
 //+------------------------------------------------------------------+
-void closeH2OnOpositeTrend() {
+void closeH1OnSameTrend() {
 
    long     positionTicket = 0;
    long     triggerTicket = 0;
@@ -143,12 +143,12 @@ void closeH2OnOpositeTrend() {
       positionTicket = positionTickets[positionTicketId];
 
       if(positionTicket > 0) {
-         if(positionIsOpenState(positionTicket) == true && positionIsHedgeHedgeState(positionTicket) == true) {
-             if(PositionType(positionTicket) == ORDER_TYPE_BUY && sglTrendBuffer[barShift] < InpMinTrendStrength * -1) {
+         if(positionIsOpenState(positionTicket) == true && PositionProfit(positionTicket) < 0) {
+             if(PositionType(positionTicket) == ORDER_TYPE_BUY && sglTrendBuffer[barShift] < InpMinTrendStrength) {
                 triggerTicket = getTriggerTicketByPositionTicket(positionTicket);
                 Trade.Close(positionTicket, PositionVolume(positionTicket), CLOSED_BY_H2_OPOSITE_TREND + IntegerToString(triggerTicket));
              }
-             if(PositionType(positionTicket) == ORDER_TYPE_SELL && sglTrendBuffer[barShift] > InpMinTrendStrength) {
+             if(PositionType(positionTicket) == ORDER_TYPE_SELL && sglTrendBuffer[barShift] < InpMinTrendStrength *-1) {
                 triggerTicket = getTriggerTicketByPositionTicket(positionTicket);
                 Trade.Close(positionTicket, PositionVolume(positionTicket), CLOSED_BY_H2_OPOSITE_TREND + IntegerToString(triggerTicket));
              }
@@ -157,3 +157,26 @@ void closeH2OnOpositeTrend() {
    }
 }
 //+------------------------------------------------------------------+
+void closeOnRotationArea() {
+
+   long     positionTicket = 0;
+   long     triggerTicket = 0;
+   int      barShift = 0;
+
+   for(int positionTicketId = 0; positionTicketId < ArraySize(positionTickets); positionTicketId++) {
+      positionTicket = positionTickets[positionTicketId];
+
+      if(positionTicket > 0) {
+         if(positionIsOpenState(positionTicket) == true && PositionProfit(positionTicket) < 0) {
+             if(sglTrendBuffer[barShift] == ROTATION_AREA) {
+                triggerTicket = getTriggerTicketByPositionTicket(positionTicket);
+                Trade.Close(positionTicket, PositionVolume(positionTicket), CLOSED_BY_H2_OPOSITE_TREND + IntegerToString(triggerTicket));
+             }
+//             if(PositionType(positionTicket) == ORDER_TYPE_SELL && sglTrendBuffer[barShift] > InpMinTrendStrength) {
+//
+//                Trade.Close(positionTicket, PositionVolume(positionTicket), CLOSED_BY_H2_OPOSITE_TREND + IntegerToString(triggerTicket));
+//             }
+         }
+      }
+   }
+}

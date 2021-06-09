@@ -7,6 +7,11 @@
 //+------------------------------------------------------------------+
 //| Inputs                                                           |
 //+------------------------------------------------------------------+
+enum ENUM_SGL_GWL {
+   SGL = 0,               // iMA verwenden
+   GWL = 1    // IndicatorCreate verwenden
+};
+
 sinput string              Basics;    // ---------- Basics ---------
 input long                 InpMagicNumber = 1619769100;
 input string               InpComment = "SimpleGrid";
@@ -18,10 +23,11 @@ input bool                 InpShowObjOnVisualMode = false;
 input bool                 InpShowDashboardOnVisualMode = false;
 
 sinput string              IND_Trend;    // ---------- IND_GjoSeTrenddetector ---------
-input ENUM_TIMEFRAMES      InpIND_GjoSeTrenddetector_SGL_Timeframe = PERIOD_M1;
-input int                  InpIND_GjoSeTrenddetector_SGL_FAST_Period = 10;
-input int                  InpIND_GjoSeTrenddetector_SGL_MIDDLE_Period = 100;
-input int                  InpIND_GjoSeTrenddetector_SGL_SLOW_Period = 200;
+input ENUM_SGL_GWL         InpIND_GjoSeTrenddetector_SGL_GWL_Type = SGL;
+input ENUM_TIMEFRAMES      InpIND_GjoSeTrenddetector_GWL_Timeframe = PERIOD_H1;
+input int                  InpIND_GjoSeTrenddetector_GWL_FAST_Period = 10;
+input int                  InpIND_GjoSeTrenddetector_GWL_MIDDLE_Period = 100;
+input int                  InpIND_GjoSeTrenddetector_GWL_SLOW_Period = 200;
 input double               InpMinTrendStrength = 30;
 input double               InpMinFastMiddleOffset = 30;
 input double               InpMinMiddleSlowOffset = 30;
