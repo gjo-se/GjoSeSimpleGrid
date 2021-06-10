@@ -9,8 +9,11 @@ const double   HIGHEST_PRICE = 0;
 const int      NOT_FOUND = -1;
 
 const int      TICK_VOLUME_BUFFER = 0;
+const int      GWL_TREND_BUFFER = 0;
 const int      SGL_TREND_BUFFER = 0;
 
+const int      UP_TREND = 1;
+const int      DOWN_TREND = -1;
 const int      ROTATION_AREA = 0;
 
 const string   NEXT_BUY_LEVEL = "nextBuyLevel_";

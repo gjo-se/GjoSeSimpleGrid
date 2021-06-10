@@ -1,44 +1,44 @@
 //+------------------------------------------------------------------+
-//|                                           HandleHedgeAction.mqh |
+//|                                         HandleTriggerAction.mqh |
 //|                                  Copyright 2021, MetaQuotes Ltd. |
 //|                                             https://www.mql5.com |
 //+------------------------------------------------------------------+
 
-void handleH3Action() {
+void handleTriggerAction() {
 
-   setH3ReEntryLevel();
-   trailH3ReEntryLevel();
-   openH3ReEntry();
+   setTriggerReEntryLevel();
+   trailTriggerReEntryLevel();
+   openTriggerReEntry();
 
 }
 
-void setH3ReEntryLevel() {
+void setTriggerReEntryLevel() {
 
-   long    positionTriggerTicket = 0;
-   long    h3Ticket = 0;
-   long    nextReEntryLevelPersist = 0;
+   long     positionTriggerTicket = 0;
+   long     triggerTicket2 = 0;
+   long     nextReEntryLevelPersist = 0;
    double   levelOffset = InpLevelOffset * Point();
    double   nextReEntryLevelTmp = 0;
-
+   
    for(int positionGroupsId = 0; positionGroupsId < ArrayRange(positionGroups, 0); positionGroupsId++) {
-      h3Ticket = positionGroups[positionGroupsId][POSITIONGROUP_ID_H3_TICKET];
+      triggerTicket2 = positionGroups[positionGroupsId][POSITIONGROUP_ID_TRIGGER_TICKET_2];
 
       if(
-         h3Ticket != 0 &&
-         positionIsOpenState(h3Ticket) == false
+         triggerTicket2 != 0 &&
+         positionIsOpenState(triggerTicket2) == false
       ) {
 
          positionTriggerTicket = positionGroups[positionGroupsId][POSITIONGROUP_ID_TRIGGER_TICKET];
-         if(getPositionTypeByPositionTicket(positionTriggerTicket) == ORDER_TYPE_BUY) {
+         if(getPositionTypeByPositionTicket(positionTriggerTicket) == ORDER_TYPE_SELL) {
             nextReEntryLevelPersist = (int)((Bid() - levelOffset) / Point());
          }
 
-         if(getPositionTypeByPositionTicket(positionTriggerTicket) == ORDER_TYPE_SELL) {
+         if(getPositionTypeByPositionTicket(positionTriggerTicket) == ORDER_TYPE_BUY) {
             nextReEntryLevelPersist = (int)((Bid() + levelOffset) / Point());
          }
 
-         positionGroups[positionGroupsId][POSITIONGROUP_ID_H3_TICKET] = 0;
-         positionGroups[positionGroupsId][POSITIONGROUP_ID_H3_ENTRY] = nextReEntryLevelPersist;
+         positionGroups[positionGroupsId][POSITIONGROUP_ID_TRIGGER_TICKET_2] = 0;
+         positionGroups[positionGroupsId][POSITIONGROUP_ID_TRIGGER_ENTRY] = nextReEntryLevelPersist;
 
          nextReEntryLevelTmp = nextReEntryLevelPersist * Point();
 
@@ -51,34 +51,35 @@ void setH3ReEntryLevel() {
 }
 
 //+------------------------------------------------------------------+
-void trailH3ReEntryLevel() {
+void trailTriggerReEntryLevel() {
 
-   long    nextReEntryLevelPersist = 0;
-   long    positionTriggerTicket = 0;
+   long     nextReEntryLevelPersist = 0;
+   long     positionTriggerTicket = 0;
    double   nextReEntryLevelTmp = 0;
    double   levelOffset = InpLevelOffset * Point();
+   
+   int positionGroupsId = 0;
+   for(positionGroupsId; positionGroupsId < ArrayRange(positionGroups, 0); positionGroupsId++) {
 
-   for(int positionGroupsId = 0; positionGroupsId < ArrayRange(positionGroups, 0); positionGroupsId++) {
-
-      nextReEntryLevelPersist = positionGroups[positionGroupsId][POSITIONGROUP_ID_H3_ENTRY];
+      nextReEntryLevelPersist = positionGroups[positionGroupsId][POSITIONGROUP_ID_TRIGGER_ENTRY];
       if(nextReEntryLevelPersist > 0) {
          positionTriggerTicket = positionGroups[positionGroupsId][POSITIONGROUP_ID_TRIGGER_TICKET];
          nextReEntryLevelTmp = nextReEntryLevelPersist * Point();
 
-         if(getPositionTypeByPositionTicket(positionTriggerTicket) == ORDER_TYPE_BUY) {
+         if(getPositionTypeByPositionTicket(positionTriggerTicket) == ORDER_TYPE_SELL) {
             if(Bid() > (nextReEntryLevelTmp + levelOffset)) {
                nextReEntryLevelTmp = Bid() - levelOffset;
                nextReEntryLevelPersist = (int)(nextReEntryLevelTmp / Point());
-               positionGroups[positionGroupsId][POSITIONGROUP_ID_H3_ENTRY] = nextReEntryLevelPersist;
+               positionGroups[positionGroupsId][POSITIONGROUP_ID_TRIGGER_ENTRY] = nextReEntryLevelPersist;
                moveReEntryLevelObject(positionTriggerTicket, nextReEntryLevelTmp);
             }
          }
 
-         if(getPositionTypeByPositionTicket(positionTriggerTicket) == ORDER_TYPE_SELL) {
+         if(getPositionTypeByPositionTicket(positionTriggerTicket) == ORDER_TYPE_BUY) {
             if(Bid() < (nextReEntryLevelTmp - levelOffset)) {
                nextReEntryLevelTmp = Bid() + levelOffset;
                nextReEntryLevelPersist = (int)(nextReEntryLevelTmp / Point());
-               positionGroups[positionGroupsId][POSITIONGROUP_ID_H3_ENTRY] = nextReEntryLevelPersist;
+               positionGroups[positionGroupsId][POSITIONGROUP_ID_TRIGGER_ENTRY] = nextReEntryLevelPersist;
                moveReEntryLevelObject(positionTriggerTicket, nextReEntryLevelTmp);
             }
          }
@@ -88,29 +89,30 @@ void trailH3ReEntryLevel() {
 
 //+------------------------------------------------------------------+
 
-void openH3ReEntry() {
+void openTriggerReEntry() {
 
    long     nextReEntryLevelPersist = 0;
    long     positionTriggerTicket = 0;
    double   nextReEntryLevelTmp = 0;
    int      barShift = 0;
 
-   for(int positionGroupsId = 0; positionGroupsId < ArrayRange(positionGroups, 0); positionGroupsId++) {
-      nextReEntryLevelPersist = positionGroups[positionGroupsId][POSITIONGROUP_ID_H3_ENTRY];
+   int positionGroupsId = 0;
+   for(positionGroupsId; positionGroupsId < ArrayRange(positionGroups, 0); positionGroupsId++) {
 
+      nextReEntryLevelPersist = positionGroups[positionGroupsId][POSITIONGROUP_ID_TRIGGER_ENTRY];
+      
       if(nextReEntryLevelPersist > 0) {
          positionTriggerTicket = positionGroups[positionGroupsId][POSITIONGROUP_ID_TRIGGER_TICKET];
          nextReEntryLevelTmp = nextReEntryLevelPersist * Point();
 
-         if(Ask() < nextReEntryLevelTmp && getPositionTypeByPositionTicket(positionTriggerTicket) == ORDER_TYPE_BUY && trend == DOWN_TREND) {
-            openReEntryH3SellOrderAction(positionTriggerTicket);
-            positionGroups[positionGroupsId][POSITIONGROUP_ID_H3_ENTRY] = 0;
+         if(Ask() < nextReEntryLevelTmp && getPositionTypeByPositionTicket(positionTriggerTicket) == ORDER_TYPE_SELL && trend == DOWN_TREND) {
+            openReEntryTriggerSellOrderAction(positionTriggerTicket);
+            positionGroups[positionGroupsId][POSITIONGROUP_ID_TRIGGER_ENTRY] = 0;
          }
 
-         if(Ask() > nextReEntryLevelTmp && getPositionTypeByPositionTicket(positionTriggerTicket) == ORDER_TYPE_SELL && trend == UP_TREND) {
-            openReEntryH3BuyOrderAction(positionTriggerTicket);
-            positionGroups[positionGroupsId][POSITIONGROUP_ID_H3_ENTRY] = 0;
-
+         if(Ask() > nextReEntryLevelTmp && getPositionTypeByPositionTicket(positionTriggerTicket) == ORDER_TYPE_BUY && trend == UP_TREND) {
+            openReEntryTriggerBuyOrderAction(positionTriggerTicket);
+            positionGroups[positionGroupsId][POSITIONGROUP_ID_TRIGGER_ENTRY] = 0;
          }
       }
    }

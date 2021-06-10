@@ -9,7 +9,7 @@
 *.dtd             text
 *.h               text
 *.htm             text
-*.html            text
+*.html            text working-tree-encoding=UTF-8 eol=CRLF
 *.ini             text
 *.js              text
 *.json            text

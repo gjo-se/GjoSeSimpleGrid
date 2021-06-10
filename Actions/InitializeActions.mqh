@@ -20,6 +20,7 @@ void initializeGlobalsAction() {
    securityStop = false;
    restartAfterEquityDD_Out = true;
    lastHistoryCall = 0;
+   trend = ROTATION_AREA;
 
 }
 //+------------------------------------------------------------------+
@@ -39,17 +40,24 @@ void initializeArraysAction() {
 //|                                                                  |
 //+------------------------------------------------------------------+
 void initializeIndicatorsAction() {
+
+    //tickvolumeHandle = iVolumes(Symbol(), PERIOD_M1, VOLUME_TICK);
+
    ENUM_TIMEFRAMES gwlTimeFrame = InpIND_GjoSeTrenddetector_GWL_Timeframe;
-   ENUM_SGL_GWL    sgl_gwl_type = InpIND_GjoSeTrenddetector_SGL_GWL_Type;
+   ENUM_SGL_GWL    gwlType = InpIND_GjoSeTrenddetector_GWL_Type;
    int gwlFast = InpIND_GjoSeTrenddetector_GWL_FAST_Period;
    int gwlMiddle = InpIND_GjoSeTrenddetector_GWL_MIDDLE_Period;
    int gwlSLOW = InpIND_GjoSeTrenddetector_GWL_SLOW_Period;
-  
+   gwlTrendHandle = iCustom(Symbol(), InpIND_GjoSeTrenddetector_GWL_Timeframe, "GjoSe\\GjoSeTrendDecetor\\IND_GjoSeTrenddetector", gwlType, gwlTimeFrame, gwlFast, gwlMiddle, gwlSLOW, InpMin_GWL_TrendStrength, InpMin_GWL_FastMiddleOffset, InpMin_GWL_MiddleSlowOffset);
+   if(gwlTrendHandle == INVALID_HANDLE) Print("Expert: iCustom call: Error code=",GetLastError());
 
-   tickvolumeHandle = iVolumes(Symbol(), PERIOD_M1, VOLUME_TICK);
-
-   sglTrendHandle = iCustom(Symbol(), InpIND_GjoSeTrenddetector_GWL_Timeframe, "GjoSe\\GjoSeTrendDecetor\\IND_GjoSeTrenddetector", sgl_gwl_type, gwlTimeFrame, gwlFast, gwlMiddle, gwlSLOW, InpMinTrendStrength, InpMinFastMiddleOffset, InpMinMiddleSlowOffset);
-   if(sglTrendHandle==INVALID_HANDLE) Print("Expert: iCustom call: Error code=",GetLastError());
+   ENUM_TIMEFRAMES sglTimeFrame = InpIND_GjoSeTrenddetector_SGL_Timeframe;
+   ENUM_SGL_GWL    sglType = InpIND_GjoSeTrenddetector_SGL_Type;
+   int sglFast = InpIND_GjoSeTrenddetector_SGL_FAST_Period;
+   int sglMiddle = InpIND_GjoSeTrenddetector_SGL_MIDDLE_Period;
+   int sglSLOW = InpIND_GjoSeTrenddetector_SGL_SLOW_Period;
+   sglTrendHandle = iCustom(Symbol(), InpIND_GjoSeTrenddetector_SGL_Timeframe, "GjoSe\\GjoSeTrendDecetor\\IND_GjoSeTrenddetector", sglType, sglTimeFrame, sglFast, sglMiddle, sglSLOW, InpMin_SGL_TrendStrength, InpMin_SGL_FastMiddleOffset, InpMin_SGL_MiddleSlowOffset);
+   if(sglTrendHandle == INVALID_HANDLE) Print("Expert: iCustom call: Error code=",GetLastError());
 }
 //+------------------------------------------------------------------+
 

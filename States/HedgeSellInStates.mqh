@@ -51,7 +51,7 @@ long getHedgeHedgeSellInSignalState() {
          positionIsHedgeState(positionTicket) == true &&
          hedgeIsHedgedState(positionTicket) == false &&
          positionIsHedgeHedgeState(positionTicket) == false &&
-         sglTrendBuffer[barShift] < InpMinTrendStrength *-1
+         trend == DOWN_TREND
       ) {
          returnValue = positionTicket;
       }
@@ -74,7 +74,7 @@ long getH3SellInSignalState() {
          PositionType(positionTicket) == ORDER_TYPE_BUY &&
          positionIsHedgeHedgeState(positionTicket) == true &&
          hedgeHedgeIsHedgedState(positionTicket) == false &&
-         sglTrendBuffer[barShift] < InpMinTrendStrength *-1
+         trend == DOWN_TREND
       ) {
          returnValue = positionTicket;
       }

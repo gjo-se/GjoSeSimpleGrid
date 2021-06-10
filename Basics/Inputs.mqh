@@ -8,8 +8,8 @@
 //| Inputs                                                           |
 //+------------------------------------------------------------------+
 enum ENUM_SGL_GWL {
-   SGL = 0,               // iMA verwenden
-   GWL = 1    // IndicatorCreate verwenden
+   GWL = 0,   // GWL
+   SGL = 1    // SGL
 };
 
 sinput string              Basics;    // ---------- Basics ---------
@@ -22,15 +22,25 @@ input ENUM_TIMEFRAMES      InpNewBarTimeframe = PERIOD_M1;
 input bool                 InpShowObjOnVisualMode = false;
 input bool                 InpShowDashboardOnVisualMode = false;
 
-sinput string              IND_Trend;    // ---------- IND_GjoSeTrenddetector ---------
-input ENUM_SGL_GWL         InpIND_GjoSeTrenddetector_SGL_GWL_Type = SGL;
-input ENUM_TIMEFRAMES      InpIND_GjoSeTrenddetector_GWL_Timeframe = PERIOD_H1;
+sinput string              IND_GWL_Trend;    // ---------- IND_GjoSeTrenddetector GWL ---------
+input ENUM_SGL_GWL         InpIND_GjoSeTrenddetector_GWL_Type = GWL;
+input ENUM_TIMEFRAMES      InpIND_GjoSeTrenddetector_GWL_Timeframe = PERIOD_D1;
 input int                  InpIND_GjoSeTrenddetector_GWL_FAST_Period = 10;
 input int                  InpIND_GjoSeTrenddetector_GWL_MIDDLE_Period = 100;
 input int                  InpIND_GjoSeTrenddetector_GWL_SLOW_Period = 200;
-input double               InpMinTrendStrength = 30;
-input double               InpMinFastMiddleOffset = 30;
-input double               InpMinMiddleSlowOffset = 30;
+input double               InpMin_GWL_TrendStrength = 300;
+input double               InpMin_GWL_FastMiddleOffset = 300;
+input double               InpMin_GWL_MiddleSlowOffset = 300;
+
+sinput string              IND_SGL_Trend;    // ---------- IND_GjoSeTrenddetector SGL ---------
+input ENUM_SGL_GWL         InpIND_GjoSeTrenddetector_SGL_Type = SGL;
+input ENUM_TIMEFRAMES      InpIND_GjoSeTrenddetector_SGL_Timeframe = PERIOD_H1;
+input int                  InpIND_GjoSeTrenddetector_SGL_FAST_Period = 10;
+input int                  InpIND_GjoSeTrenddetector_SGL_MIDDLE_Period = 100;
+input int                  InpIND_GjoSeTrenddetector_SGL_SLOW_Period = 200;
+input double               InpMin_SGL_TrendStrength = 30;
+input double               InpMin_SGL_FastMiddleOffset = 30;
+input double               InpMin_SGL_MiddleSlowOffset = 30;
 
 sinput string              SL_TP;    // ---------- SL & TP ---------
 input int                  InpStopLoss = 0;

@@ -120,11 +120,11 @@ void closePositionInProfit() {
       if(positionTicket > 0) {
          if(positionIsOpenState(positionTicket) == true && PositionProfit(positionTicket) > 0) {
 
-            if(PositionType(positionTicket) == ORDER_TYPE_BUY && sglTrendBuffer[barShift] < InpMinTrendStrength * -1) {
+            if(PositionType(positionTicket) == ORDER_TYPE_BUY && trend == DOWN_TREND) {
                triggerTicket = getTriggerTicketByPositionTicket(positionTicket);
                Trade.Close(positionTicket, PositionVolume(positionTicket), CLOSED_BY_POSITION_PROFIT + IntegerToString(triggerTicket));
             }
-            if(PositionType(positionTicket) == ORDER_TYPE_SELL && sglTrendBuffer[barShift] > InpMinTrendStrength) {
+            if(PositionType(positionTicket) == ORDER_TYPE_SELL && trend == UP_TREND) {
                triggerTicket = getTriggerTicketByPositionTicket(positionTicket);
                Trade.Close(positionTicket, PositionVolume(positionTicket), CLOSED_BY_POSITION_PROFIT + IntegerToString(triggerTicket));
             }
@@ -144,11 +144,11 @@ void closeH1OnSameTrend() {
 
       if(positionTicket > 0) {
          if(positionIsOpenState(positionTicket) == true && PositionProfit(positionTicket) < 0) {
-             if(PositionType(positionTicket) == ORDER_TYPE_BUY && sglTrendBuffer[barShift] < InpMinTrendStrength) {
+             if(PositionType(positionTicket) == ORDER_TYPE_BUY && trend == UP_TREND) {
                 triggerTicket = getTriggerTicketByPositionTicket(positionTicket);
                 Trade.Close(positionTicket, PositionVolume(positionTicket), CLOSED_BY_H2_OPOSITE_TREND + IntegerToString(triggerTicket));
              }
-             if(PositionType(positionTicket) == ORDER_TYPE_SELL && sglTrendBuffer[barShift] < InpMinTrendStrength *-1) {
+             if(PositionType(positionTicket) == ORDER_TYPE_SELL && trend == DOWN_TREND) {
                 triggerTicket = getTriggerTicketByPositionTicket(positionTicket);
                 Trade.Close(positionTicket, PositionVolume(positionTicket), CLOSED_BY_H2_OPOSITE_TREND + IntegerToString(triggerTicket));
              }

@@ -28,8 +28,11 @@ long  dealGroupProfitTmp[][2];
 
 int      tickvolumeHandle;
 double   tickVolumeBuffer[];
+int      gwlTrendHandle;
+double   gwlTrendBuffer[];
 int      sglTrendHandle;
 double   sglTrendBuffer[];
+int      trend;
 
 bool openBuyPositionsFilter;
 
