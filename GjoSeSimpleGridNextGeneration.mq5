@@ -11,6 +11,7 @@
    1.3.0 optimize Trend
    1.3.3 add H3
    1.4.0 add GWL
+   1.4.1 GWL & SGL
 
    ===============
 
@@ -66,7 +67,7 @@ int OnInit() {
 // mit anderen NewBar aufräumen
 bool  NewBar() {
 
-   datetime currentTime =  iTime(Symbol(), PERIOD_M1, 0);
+   datetime currentTime =  iTime(Symbol(), InpNewBarTimeframe, 0);
    bool     result      =  (currentTime != lastBarTime);
    lastBarTime   =   currentTime;
 
@@ -100,7 +101,9 @@ void OnTick() {
 
    if(NewBar() == true) {
 
-      Bar.Update(Symbol(), PERIOD_M1);
+      Bar.Update(Symbol(), InpNewBarTimeframe);
+      
+      setTrend();
 
 
       closePositionGroupInProfit();
@@ -190,8 +193,11 @@ void OnTick() {
 
       }
 
-      ArraySetAsSeries(tickVolumeBuffer, true);
-      CopyBuffer(tickvolumeHandle, TICK_VOLUME_BUFFER, 0, 300, tickVolumeBuffer);
+//      ArraySetAsSeries(tickVolumeBuffer, true);
+//      CopyBuffer(tickvolumeHandle, TICK_VOLUME_BUFFER, 0, 300, tickVolumeBuffer);
+
+      ArraySetAsSeries(gwlTrendBuffer, true);
+      CopyBuffer(gwlTrendHandle, GWL_TREND_BUFFER, 0, 10, gwlTrendBuffer);
 
       ArraySetAsSeries(sglTrendBuffer, true);
       CopyBuffer(sglTrendHandle, SGL_TREND_BUFFER, 0, 10, sglTrendBuffer);

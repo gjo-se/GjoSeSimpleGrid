@@ -104,12 +104,12 @@ void openHedgeReEntry() {
          positionTriggerTicket = positionGroups[positionGroupsId][POSITIONGROUP_ID_TRIGGER_TICKET];
          nextReEntryLevelTmp = nextReEntryLevelPersist * Point();
 
-         if(Ask() < nextReEntryLevelTmp && getPositionTypeByPositionTicket(positionTriggerTicket) == ORDER_TYPE_BUY && sglTrendBuffer[barShift] < InpMinTrendStrength *-1) {
+         if(Ask() < nextReEntryLevelTmp && getPositionTypeByPositionTicket(positionTriggerTicket) == ORDER_TYPE_BUY && trend == DOWN_TREND) {
             openReEntryHedgeSellOrderAction(positionTriggerTicket);
             positionGroups[positionGroupsId][POSITIONGROUP_ID_HEDGE_ENTRY] = 0;
          }
 
-         if(Ask() > nextReEntryLevelTmp && getPositionTypeByPositionTicket(positionTriggerTicket) == ORDER_TYPE_SELL && sglTrendBuffer[barShift] > InpMinTrendStrength) {
+         if(Ask() > nextReEntryLevelTmp && getPositionTypeByPositionTicket(positionTriggerTicket) == ORDER_TYPE_SELL && trend == UP_TREND) {
             openReEntryHedgeBuyOrderAction(positionTriggerTicket);
             positionGroups[positionGroupsId][POSITIONGROUP_ID_HEDGE_ENTRY] = 0;
          }

@@ -25,7 +25,7 @@ bool getTriggerSellInSignalState() {
    }
 
    if(spreadGreaterThanMaxSpreadSellInFilter() == true) signal = false;
-   if(getTrendSellInFilter() == true) signal = false;
+   if(getGWLTrendSellInFilter() == true) signal = false;
 
    return(signal);
 
@@ -53,12 +53,12 @@ bool spreadGreaterThanMaxSpreadSellInFilter() {
 }
 //+------------------------------------------------------------------+
 
-bool getTrendSellInFilter() {
+bool getGWLTrendSellInFilter() {
 
    bool filter = false;
    int barShift = 0;
 
-   if(sglTrendBuffer[barShift] > InpMinTrendStrength *- 1) {
+   if(trend != DOWN_TREND) {
       filter = true;
    }
 
