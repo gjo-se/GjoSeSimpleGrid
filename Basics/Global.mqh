@@ -33,6 +33,7 @@ double   gwlTrendBuffer[];
 int      sglTrendHandle;
 double   sglTrendBuffer[];
 int      trend;
+//int      sglTrend;
 
 bool openBuyPositionsFilter;
 

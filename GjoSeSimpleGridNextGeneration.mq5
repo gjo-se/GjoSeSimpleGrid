@@ -107,7 +107,9 @@ void OnTick() {
 
 
       closePositionGroupInProfit();
+      closePositionInLoss();
       //closePositionInProfit();
+      //closeH1OnOpositeTrend();
       //closeH1OnSameTrend();
       //closeOnRotationArea();
 
@@ -134,12 +136,11 @@ void OnTick() {
          for(int positionTicketId = 0; positionTicketId < ArraySize(positionTickets); positionTicketId++) {
             positionTicket = positionTickets[positionTicketId];
 
-            // hier wird der Trigger nicht mehr aussortiert!
             //if(InpUseBreakEven == true) setBreakevenAction(positionTicket);
          }
 
          //Trigger
-         if(getTriggerBuyInSignalState() == true) openBuyOrderAction();
+         //if(getTriggerBuyInSignalState() == true) openBuyOrderAction();
          if(getTriggerSellInSignalState() == true) openSellOrderAction();
 
          //handleTriggerAction();
@@ -192,12 +193,6 @@ void OnTick() {
          //printArrayTwoDimensions(dealGroupProfit, ArrayRange(dealGroupProfit, 0), 2);
 
       }
-
-//      ArraySetAsSeries(tickVolumeBuffer, true);
-//      CopyBuffer(tickvolumeHandle, TICK_VOLUME_BUFFER, 0, 300, tickVolumeBuffer);
-
-      ArraySetAsSeries(gwlTrendBuffer, true);
-      CopyBuffer(gwlTrendHandle, GWL_TREND_BUFFER, 0, 10, gwlTrendBuffer);
 
       ArraySetAsSeries(sglTrendBuffer, true);
       CopyBuffer(sglTrendHandle, SGL_TREND_BUFFER, 0, 10, sglTrendBuffer);
