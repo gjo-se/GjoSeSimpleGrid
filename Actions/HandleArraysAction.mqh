@@ -35,145 +35,145 @@ void addTriggerTicketInPositionGroupsAction() {
 }
 //+------------------------------------------------------------------+
 
-void addTriggerTicketReEnInPositionGroupsAction(long pTriggerTicket) {
-
-   long  triggerTicketReEn = 0;
-   int   positionGroupId = 0;
-   long  positionTicket = 0;
-
-   positionGroupId = getPositionGroupIdByPositionTicket(pTriggerTicket);
-   if(positionGroupId != NOT_FOUND) {
-      for(int positionTicketId = 0; positionTicketId < ArraySize(positionTickets); positionTicketId++) {
-         positionTicket = positionTickets[positionTicketId];
-
-         if(StringFind(PositionComment(positionTicket), InpTriggerCommentReEntryTriggertBy + IntegerToString(pTriggerTicket)) != NOT_FOUND) {
-            triggerTicketReEn = positionTickets[positionTicketId];
-
-            if(triggerTicketReEn > 0 && positionGroups[positionGroupId][POSITIONGROUP_ID_TRIGGER_TICKET] == pTriggerTicket) {
-               positionGroups[positionGroupId][POSITIONGROUP_ID_TRIGGER_TICKET_2] = triggerTicketReEn;
-
-               if(ObjectFind(0, NEXT_ENTRY_LEVEL + IntegerToString(pTriggerTicket)) >= 0) {
-                  deleteHLine(0, NEXT_ENTRY_LEVEL + IntegerToString(pTriggerTicket));
-               }
-
-            } else {
-
-               // dann liegt definitv ein Fehler vor!!
-            }
-         }
-      }
-
-   } else {
-
-      // dann liegt definitv ein Fehler vor!!
-
-   }
-}
+//void addTriggerTicketReEnInPositionGroupsAction(long pTriggerTicket) {
+//
+//   long  triggerTicketReEn = 0;
+//   int   positionGroupId = 0;
+//   long  positionTicket = 0;
+//
+//   positionGroupId = getPositionGroupIdByPositionTicket(pTriggerTicket);
+//   if(positionGroupId != NOT_FOUND) {
+//      for(int positionTicketId = 0; positionTicketId < ArraySize(positionTickets); positionTicketId++) {
+//         positionTicket = positionTickets[positionTicketId];
+//
+//         if(StringFind(PositionComment(positionTicket), InpTriggerCommentReEntryTriggertBy + IntegerToString(pTriggerTicket)) != NOT_FOUND) {
+//            triggerTicketReEn = positionTickets[positionTicketId];
+//
+//            if(triggerTicketReEn > 0 && positionGroups[positionGroupId][POSITIONGROUP_ID_TRIGGER_TICKET] == pTriggerTicket) {
+//               positionGroups[positionGroupId][POSITIONGROUP_ID_TRIGGER_TICKET_2] = triggerTicketReEn;
+//
+//               if(ObjectFind(0, NEXT_ENTRY_LEVEL + IntegerToString(pTriggerTicket)) >= 0) {
+//                  deleteHLine(0, NEXT_ENTRY_LEVEL + IntegerToString(pTriggerTicket));
+//               }
+//
+//            } else {
+//
+//               // dann liegt definitv ein Fehler vor!!
+//            }
+//         }
+//      }
+//
+//   } else {
+//
+//      // dann liegt definitv ein Fehler vor!!
+//
+//   }
+//}
 
 //+------------------------------------------------------------------+
 //|                                                                  |
 //+------------------------------------------------------------------+
-void addHedgeTicketInPositionGroupsAction(long pTriggerTicket) {
-
-   long hedgeTicket = 0;
-   int positionGroupId = 0;
-
-   positionGroupId = getPositionGroupIdByPositionTicket(pTriggerTicket);
-   if(positionGroupId != NOT_FOUND) {
-
-      int hedgeTicketId = 0;
-      for(hedgeTicketId; hedgeTicketId < ArraySize(positionTickets); hedgeTicketId++) {
-         long ticket = positionTickets[hedgeTicketId];
-
-         if(StringFind(PositionComment(ticket), InpHedgeCommentTriggertBy + IntegerToString(pTriggerTicket)) != NOT_FOUND) {
-            hedgeTicket = positionTickets[hedgeTicketId];
-
-            if(hedgeTicket > 0 && positionGroups[positionGroupId][POSITIONGROUP_ID_TRIGGER_TICKET] == pTriggerTicket) {
-               positionGroups[positionGroupId][POSITIONGROUP_ID_HEDGE_TICKET] = hedgeTicket;
-
-               if(ObjectFind(0, NEXT_ENTRY_LEVEL + IntegerToString(pTriggerTicket)) >= 0) {
-                  deleteHLine(0, NEXT_ENTRY_LEVEL + IntegerToString(pTriggerTicket));
-               }
-
-            } else {
-
-               // dann liegt definitv ein Fehler vor!!
-            }
-         }
-      }
-
-   } else {
-
-      // dann liegt definitv ein Fehler vor!!
-
-   }
-}
-
-void addHedgeHedgeTicketInPositionGroupsAction(long pTriggerTicket) {
-
-   long tmpTicket = 0;
-   long hedgeHedgeTicket = 0;
-   int positionGroupId = 0;
-
-   positionGroupId = getPositionGroupIdByPositionTicket(pTriggerTicket);
-   if(positionGroupId != NOT_FOUND) {
-
-      int positionTicketId = 0;
-      for(positionTicketId; positionTicketId < ArraySize(positionTickets); positionTicketId++) {
-         tmpTicket = positionTickets[positionTicketId];
-
-         if(StringFind(PositionComment(tmpTicket), InpHedgeHedgeCommentTriggertBy + IntegerToString(pTriggerTicket)) != NOT_FOUND) {
-            hedgeHedgeTicket = positionTickets[positionTicketId];
-
-            if(hedgeHedgeTicket > 0 && positionGroups[positionGroupId][POSITIONGROUP_ID_TRIGGER_TICKET] == pTriggerTicket) {
-               positionGroups[positionGroupId][POSITIONGROUP_ID_HEDGE_HEDGE_TICKET] = hedgeHedgeTicket;
-
-               //if(ObjectFind(0, NEXT_ENTRY_LEVEL + pTriggerTicket) >= 0) {
-               //   deleteHLine(0, NEXT_ENTRY_LEVEL + pTriggerTicket);
-               //}
-
-            } else {
-               // dann liegt definitv ein Fehler vor!!
-            }
-         }
-      }
-
-   } else {
-
-      // dann liegt definitv ein Fehler vor!!
-
-   }
-}
-
-void addH3TicketInPositionGroupsAction(long pTriggerTicket) {
-
-   long tmpTicket = 0;
-   long h3Ticket = 0;
-   int positionGroupId = 0;
-
-   positionGroupId = getPositionGroupIdByPositionTicket(pTriggerTicket);
-   if(positionGroupId != NOT_FOUND) {
-
-      for(int positionTicketId = 0; positionTicketId < ArraySize(positionTickets); positionTicketId++) {
-         tmpTicket = positionTickets[positionTicketId];
-
-         if(StringFind(PositionComment(tmpTicket), InpH3CommentTriggertBy + IntegerToString(pTriggerTicket)) != NOT_FOUND) {
-            h3Ticket = positionTickets[positionTicketId];
-
-            if(h3Ticket > 0 && positionGroups[positionGroupId][POSITIONGROUP_ID_TRIGGER_TICKET] == pTriggerTicket) {
-               positionGroups[positionGroupId][POSITIONGROUP_ID_H3_TICKET] = h3Ticket;
-            } else {
-               // dann liegt definitv ein Fehler vor!!
-            }
-         }
-      }
-
-   } else {
-
-      // dann liegt definitv ein Fehler vor!!
-
-   }
-}
+//void addHedgeTicketInPositionGroupsAction(long pTriggerTicket) {
+//
+//   long hedgeTicket = 0;
+//   int positionGroupId = 0;
+//
+//   positionGroupId = getPositionGroupIdByPositionTicket(pTriggerTicket);
+//   if(positionGroupId != NOT_FOUND) {
+//
+//      int hedgeTicketId = 0;
+//      for(hedgeTicketId; hedgeTicketId < ArraySize(positionTickets); hedgeTicketId++) {
+//         long ticket = positionTickets[hedgeTicketId];
+//
+//         if(StringFind(PositionComment(ticket), InpHedgeCommentTriggertBy + IntegerToString(pTriggerTicket)) != NOT_FOUND) {
+//            hedgeTicket = positionTickets[hedgeTicketId];
+//
+//            if(hedgeTicket > 0 && positionGroups[positionGroupId][POSITIONGROUP_ID_TRIGGER_TICKET] == pTriggerTicket) {
+//               positionGroups[positionGroupId][POSITIONGROUP_ID_HEDGE_TICKET] = hedgeTicket;
+//
+//               if(ObjectFind(0, NEXT_ENTRY_LEVEL + IntegerToString(pTriggerTicket)) >= 0) {
+//                  deleteHLine(0, NEXT_ENTRY_LEVEL + IntegerToString(pTriggerTicket));
+//               }
+//
+//            } else {
+//
+//               // dann liegt definitv ein Fehler vor!!
+//            }
+//         }
+//      }
+//
+//   } else {
+//
+//      // dann liegt definitv ein Fehler vor!!
+//
+//   }
+//}
+//
+//void addHedgeHedgeTicketInPositionGroupsAction(long pTriggerTicket) {
+//
+//   long tmpTicket = 0;
+//   long hedgeHedgeTicket = 0;
+//   int positionGroupId = 0;
+//
+//   positionGroupId = getPositionGroupIdByPositionTicket(pTriggerTicket);
+//   if(positionGroupId != NOT_FOUND) {
+//
+//      int positionTicketId = 0;
+//      for(positionTicketId; positionTicketId < ArraySize(positionTickets); positionTicketId++) {
+//         tmpTicket = positionTickets[positionTicketId];
+//
+//         if(StringFind(PositionComment(tmpTicket), InpHedgeHedgeCommentTriggertBy + IntegerToString(pTriggerTicket)) != NOT_FOUND) {
+//            hedgeHedgeTicket = positionTickets[positionTicketId];
+//
+//            if(hedgeHedgeTicket > 0 && positionGroups[positionGroupId][POSITIONGROUP_ID_TRIGGER_TICKET] == pTriggerTicket) {
+//               positionGroups[positionGroupId][POSITIONGROUP_ID_HEDGE_HEDGE_TICKET] = hedgeHedgeTicket;
+//
+//               //if(ObjectFind(0, NEXT_ENTRY_LEVEL + pTriggerTicket) >= 0) {
+//               //   deleteHLine(0, NEXT_ENTRY_LEVEL + pTriggerTicket);
+//               //}
+//
+//            } else {
+//               // dann liegt definitv ein Fehler vor!!
+//            }
+//         }
+//      }
+//
+//   } else {
+//
+//      // dann liegt definitv ein Fehler vor!!
+//
+//   }
+//}
+//
+//void addH3TicketInPositionGroupsAction(long pTriggerTicket) {
+//
+//   long tmpTicket = 0;
+//   long h3Ticket = 0;
+//   int positionGroupId = 0;
+//
+//   positionGroupId = getPositionGroupIdByPositionTicket(pTriggerTicket);
+//   if(positionGroupId != NOT_FOUND) {
+//
+//      for(int positionTicketId = 0; positionTicketId < ArraySize(positionTickets); positionTicketId++) {
+//         tmpTicket = positionTickets[positionTicketId];
+//
+//         if(StringFind(PositionComment(tmpTicket), InpH3CommentTriggertBy + IntegerToString(pTriggerTicket)) != NOT_FOUND) {
+//            h3Ticket = positionTickets[positionTicketId];
+//
+//            if(h3Ticket > 0 && positionGroups[positionGroupId][POSITIONGROUP_ID_TRIGGER_TICKET] == pTriggerTicket) {
+//               positionGroups[positionGroupId][POSITIONGROUP_ID_H3_TICKET] = h3Ticket;
+//            } else {
+//               // dann liegt definitv ein Fehler vor!!
+//            }
+//         }
+//      }
+//
+//   } else {
+//
+//      // dann liegt definitv ein Fehler vor!!
+//
+//   }
+//}
 
 
 void addTriggerTicketInDealGroupsAndDealGroupProfitAction() {

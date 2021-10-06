@@ -22,26 +22,40 @@ input ENUM_TIMEFRAMES      InpNewBarTimeframe = PERIOD_M1;
 input bool                 InpShowObjOnVisualMode = false;
 input bool                 InpShowDashboardOnVisualMode = false;
 
-sinput string              IND_GWL_Trend;    // ---------- IND_GjoSeTrenddetector GWL ---------
-input ENUM_GWL_TREND         InpIND_GjoSeTrenddetector_GWL_Trend = GWL_DOWN_TREND;
-//input ENUM_TIMEFRAMES      InpIND_GjoSeTrenddetector_GWL_Timeframe = PERIOD_D1;
-//input int                  InpIND_GjoSeTrenddetector_GWL_FAST_Period = 10;
-//input int                  InpIND_GjoSeTrenddetector_GWL_MIDDLE_Period = 100;
-//input int                  InpIND_GjoSeTrenddetector_GWL_SLOW_Period = 200;
-//input double               InpMin_GWL_TrendStrength = 300;
-//input double               InpMin_GWL_FastMiddleOffset = 300;
-//input double               InpMin_GWL_MiddleSlowOffset = 300;
+//sinput string              IND_GWL_Trend;    // ---------- IND_GjoSeDynamic GWL ---------
+//input ENUM_TIMEFRAMES      InpIND_GjoSeDynamic_GWL_Timeframe = PERIOD_H1;
+//input int                  InpIND_GjoSeDynamic_GWL_FAST_Period = 1;
+//input int                  InpIND_GjoSeDynamic_GWL_MIDDLE_Period = 100;
+//input int                  InpIND_GjoSeDynamic_GWL_SLOW_Period = 200;
+//input int                  InpIND_GjoSeDynamic_GWL_MinDynamic = 0;
+//input int                  InpIND_GjoSeDynamic_GWL_MaxDynamic = 1500;
+//input int                  InpIND_GjoSeDynamic_GWL_FastSlowDynamic = 100;
 
-sinput string              IND_SGL_Trend;    // ---------- IND_GjoSeTrenddetector SGL ---------
-//input ENUM_SGL_GWL         InpIND_GjoSeTrenddetector_SGL_Type = SGL;
-input ENUM_TIMEFRAMES      InpIND_GjoSeTrenddetector_SGL_Timeframe = PERIOD_H1;
-input int                  InpIND_GjoSeTrenddetector_SGL_FAST_Period = 1;
-input int                  InpIND_GjoSeTrenddetector_SGL_MIDDLE_Period = 24;
-input int                  InpIND_GjoSeTrenddetector_SGL_SLOW_Period = 200;
-input double               InpMin_SGL_TrendStrength = 30;
-input double               InpMin_SGL_FastMiddleOffset = 30;
-input double               InpMin_SGL_MiddleSlowOffset = 30;
-input int                  InpExitValue = 999999;
+sinput string              IND_GjoSeTrenddetector;    // ---------- IND_GjoSeTrenddetector ---------
+input int                  InpIND_GjoSeTrenddetector_FAST_Period = 1;
+input int                  InpIND_GjoSeTrenddetector_Middle_Period = 100;
+input int                  InpIND_GjoSeTrenddetector_Slow_Period = 200;
+input ENUM_TIMEFRAMES      InpIND_GjoSeTrenddetector_GWL_Timeframe = PERIOD_D1;
+
+//input int                  InpIND_GjoSeDynamic_SGL_MinDynamic = 100;
+//input int                  InpIND_GjoSeDynamic_SGL_MaxDynamic = 700;
+//input int                  InpIND_GjoSeDynamic_SGL_FastSlowDynamic = 20;
+//input int                  InpIND_GjoSeDynamic_SGL_FastSlowSignalOffset = 15;
+
+//sinput string               DYNAMIC;		// Dynamic
+//input int                   InpDynamicAVGSpeedMulti = 3;
+
+//sinput string               SGL_BOLLINGER;		// SGL Bollinger Bands
+//input int                   InpSGL_BollingerPeriod = 20;
+//input int                   InpSGL_BoolingerShift = 0;
+//input double                InpSGL_BollingerDeviation = 2;
+//input ENUM_APPLIED_PRICE    InpSGL_BollingerPrice = PRICE_CLOSE;
+//input int                   InpSGL_Bollinger_MaxOffset = 50;
+//
+//sinput string               RSI;	// SGL RSI
+//input int                   InpRSIPeriod = 14;
+//input ENUM_APPLIED_PRICE    InpRSIPrice = PRICE_CLOSE;
+//input int                   InpMinRSI = 30;
 
 sinput string              SL_TP;    // ---------- SL & TP ---------
 input int                  InpStopLoss = 0;
@@ -58,6 +72,12 @@ input bool                 InpUseBreakEven = true;
 input int                  InpBreakEvenProfit = 50;
 input int                  InpLockProfit = 10;
 
+sinput string              TS;		// Trailing Stop
+input bool                 InpUseTrailingStop = true;
+input int                  InpTrailingStop = 300;
+input int                  InpTrailingMinimumProfit = 100;
+input int                  InpTrailingStep = 10; 
+
 sinput string              MM;    // ---------- MoneyManagement ---------
 input bool                 InpUseMoneyManagement = true;
 input double               InpRiskPercent = 0;
@@ -72,21 +92,23 @@ input int                  InpEndHour = 23;
 input int                  InpEndMinute = 0;
 input bool                 InpUseLocalTime = false;
 
-sinput string              HE;    // ---------- Hedge ---------
-input double               InpHedgeMulti = 1;
-input double               InpHedgeHedgeMulti = 2;
-input double               InpH3Multi = 1;
-
-
-input string               InpHedgeCommentTriggertBy = "HTBy_";
-input string               InpHedgeCommentReEntryTriggertBy = "ReHTBy_";
-input string               InpHedgeHedgeCommentTriggertBy = "HHTBy_";
-input string               InpH3CommentTriggertBy = "H3TBy_";
-input string               InpHedgeHedgeCommentReEntryTriggertBy = "ReHHTBy_";
-input string               InpTriggerCommentReEntryTriggertBy = "ReTTBy_";
-input string               InpH3CommentReEntryTriggertBy = "ReH3TBy_";
-
-sinput string              SEC;    // ---------- Security ---------
-input double               InpMaxAbsoluteEquity = 10000;
-input double               InpMaxEquityDD_Out = 30;
-input double               InpMaxEquityDD_OutAndStop = 30;
+//sinput string              HE;    // ---------- Hedge ---------
+//input double               InpHedgeMulti = 1;
+//input double               InpHedgeHedgeMulti = 2;
+//input double               InpH3Multi = 1;
+//
+//
+//input string               InpHedgeCommentTriggertBy = "HTBy_";
+//input string               InpHedgeCommentReEntryTriggertBy = "ReHTBy_";
+//input string               InpHedgeHedgeCommentTriggertBy = "HHTBy_";
+//input string               InpH3CommentTriggertBy = "H3TBy_";
+//input string               InpHedgeHedgeCommentReEntryTriggertBy = "ReHHTBy_";
+//input string               InpTriggerCommentReEntryTriggertBy = "ReTTBy_";
+//input string               InpH3CommentReEntryTriggertBy = "ReH3TBy_";
+//
+//sinput string              SEC;    // ---------- Security ---------
+//input int                  InpMaxAbsoluteEquity = 10000;
+//input double               InpMaxEquityDD = 20;
+//input double               InpEquityDDStep = 2;
+//input double               InpMaxEquityDD_OutAndStop = 30;
+input bool                 InpPrintFilter = true;

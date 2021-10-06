@@ -6,9 +6,9 @@
 
 void handleTriggerAction() {
 
-   setTriggerReEntryLevel();
-   trailTriggerReEntryLevel();
-   openTriggerReEntry();
+   //setTriggerReEntryLevel();
+   //trailTriggerReEntryLevel();
+   //openTriggerReEntry();
 
 }
 
@@ -89,32 +89,32 @@ void trailTriggerReEntryLevel() {
 
 //+------------------------------------------------------------------+
 
-void openTriggerReEntry() {
-
-   long     nextReEntryLevelPersist = 0;
-   long     positionTriggerTicket = 0;
-   double   nextReEntryLevelTmp = 0;
-   int      barShift = 0;
-
-   int positionGroupsId = 0;
-   for(positionGroupsId; positionGroupsId < ArrayRange(positionGroups, 0); positionGroupsId++) {
-
-      nextReEntryLevelPersist = positionGroups[positionGroupsId][POSITIONGROUP_ID_TRIGGER_ENTRY];
-      
-      if(nextReEntryLevelPersist > 0) {
-         positionTriggerTicket = positionGroups[positionGroupsId][POSITIONGROUP_ID_TRIGGER_TICKET];
-         nextReEntryLevelTmp = nextReEntryLevelPersist * Point();
-
-         if(Ask() < nextReEntryLevelTmp && getPositionTypeByPositionTicket(positionTriggerTicket) == ORDER_TYPE_SELL && trend == DOWN_TREND) {
-            openReEntryTriggerSellOrderAction(positionTriggerTicket);
-            positionGroups[positionGroupsId][POSITIONGROUP_ID_TRIGGER_ENTRY] = 0;
-         }
-
-         if(Ask() > nextReEntryLevelTmp && getPositionTypeByPositionTicket(positionTriggerTicket) == ORDER_TYPE_BUY && trend == UP_TREND) {
-            openReEntryTriggerBuyOrderAction(positionTriggerTicket);
-            positionGroups[positionGroupsId][POSITIONGROUP_ID_TRIGGER_ENTRY] = 0;
-         }
-      }
-   }
-}
+//void openTriggerReEntry() {
+//
+//   long     nextReEntryLevelPersist = 0;
+//   long     positionTriggerTicket = 0;
+//   double   nextReEntryLevelTmp = 0;
+//   int      barShift = 0;
+//
+//   int positionGroupsId = 0;
+//   for(positionGroupsId; positionGroupsId < ArrayRange(positionGroups, 0); positionGroupsId++) {
+//
+//      nextReEntryLevelPersist = positionGroups[positionGroupsId][POSITIONGROUP_ID_TRIGGER_ENTRY];
+//      
+//      if(nextReEntryLevelPersist > 0) {
+//         positionTriggerTicket = positionGroups[positionGroupsId][POSITIONGROUP_ID_TRIGGER_TICKET];
+//         nextReEntryLevelTmp = nextReEntryLevelPersist * Point();
+//
+//         if(Ask() < nextReEntryLevelTmp && getPositionTypeByPositionTicket(positionTriggerTicket) == ORDER_TYPE_SELL && trend == DOWN_TREND) {
+//            openReEntryTriggerSellOrderAction(positionTriggerTicket);
+//            positionGroups[positionGroupsId][POSITIONGROUP_ID_TRIGGER_ENTRY] = 0;
+//         }
+//
+//         if(Ask() > nextReEntryLevelTmp && getPositionTypeByPositionTicket(positionTriggerTicket) == ORDER_TYPE_BUY && trend == UP_TREND) {
+//            openReEntryTriggerBuyOrderAction(positionTriggerTicket);
+//            positionGroups[positionGroupsId][POSITIONGROUP_ID_TRIGGER_ENTRY] = 0;
+//         }
+//      }
+//   }
+//}
 //+------------------------------------------------------------------+

@@ -43,7 +43,7 @@ bool getBasicSellOutSignal() {
    string objName = __FUNCTION__;
 
 //   if(signal == true && (InpPrintSellOutLines == true || printLocal == true)) {
-//      createVLine(objName + TimeToString(currentTime), currentTime, SELL_OUT_LINE_COLOR, 1, SGL_LINE_STYLE);
+//
 //      ObjectSetString(0, objName + TimeToStr(currentTime), OBJPROP_TEXT, objName + " (" + IntegerToString(orderCounter) + ")SLOW: " + last_MA_SLOW + " FAST: " + last_MA_FAST);
 //   }
 

@@ -31,7 +31,7 @@
 #include "..\\Actions\\HandleHedgeAction.mqh"
 #include "..\\Actions\\HandleHedgeHedgeAction.mqh"
 #include "..\\Actions\\HandleH3Action.mqh"
-#include "..\\Actions\\BreakevenActions.mqh"
+#include "..\\Actions\\BreakevenAction.mqh"
 #include "..\\Actions\\DiverseActions.mqh"
 
 
@@ -50,8 +50,10 @@
 #include "..\\Signals\\SimpleGridTriggerBuyOut.mqh"
 #include "..\\Signals\\SimpleGridTriggerSellOut.mqh"
 
-#include <GjoSe\\Utilities\\InclUtilities.mqh>
+#include <GjoSe\\Utilities\\InclBasicUtilities.mqh>
 #include <GjoSe\\Objects\\InclLabel.mqh>
 #include <GjoSe\\Objects\\InclRectangleLabel.mqh>
 #include <GjoSe\\Objects\\InclHLine.mqh>
+#include <GjoSe\\Objects\\InclVLine.mqh>
+#include <GjoSe\\Objects\\InclTrendLine.mqh>
 #include "..\\Dependencies\\GjoSeDashboard.mqh"

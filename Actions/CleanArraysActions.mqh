@@ -4,11 +4,12 @@
 //|                                             https://www.mql5.com |
 //+------------------------------------------------------------------+
 
-void cleanPositionTicketsArrayAction() {
-
-   initializeArray(positionTickets, 100000);
-   Positions.GetTickets(InpMagicNumber, positionTickets);
-}
+// now defined in Mql5Book/TradeHedge.mqh
+//void cleanPositionTicketsArrayAction() {
+//
+//   initializeArray(positionTickets, 100000);
+//   Positions.GetTickets(InpMagicNumber, positionTickets);
+//}
 
 void cleanPositionGroupsArrayAction() {
 
@@ -55,7 +56,13 @@ void cleanPositionGroupsArrayAction() {
          positionGroups[arrayRange][POSITIONGROUP_ID_TRIGGER_TICKET_VOLUME] = triggerTicketVolume;
          positionGroups[arrayRange][POSITIONGROUP_ID_TRIGGER_TICKET_2] = triggerTicket2;
          positionGroups[arrayRange][POSITIONGROUP_ID_TRIGGER_ENTRY] = nextTriggerLevel;
-         positionGroups[arrayRange][POSITIONGROUP_ID_HEDGE_TICKET] = hedgeTicket;
+         
+         if(positionIsOpenState(hedgeTicket) == true){
+            positionGroups[arrayRange][POSITIONGROUP_ID_HEDGE_TICKET] = hedgeTicket;
+         }else{
+            positionGroups[arrayRange][POSITIONGROUP_ID_HEDGE_TICKET] = 0;
+         }
+         
          positionGroups[arrayRange][POSITIONGROUP_ID_HEDGE_ENTRY] = nextHedgeLevel;
          positionGroups[arrayRange][POSITIONGROUP_ID_HEDGE_HEDGE_TICKET] = hedgeHedgeTicket;
          positionGroups[arrayRange][POSITIONGROUP_ID_HEDGE_HEDGE_ENTRY] = nextHedgeHedgeLevel;

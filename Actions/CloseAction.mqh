@@ -132,51 +132,199 @@ void closePositionInProfit() {
       }
    }
 }
-//+------------------------------------------------------------------+
-void closeH1OnSameTrend() {
 
-   long     positionTicket = 0;
-   long     triggerTicket = 0;
-   int      barShift = 0;
-
-   for(int positionTicketId = 0; positionTicketId < ArraySize(positionTickets); positionTicketId++) {
-      positionTicket = positionTickets[positionTicketId];
-
-      if(positionTicket > 0) {
-         if(positionIsOpenState(positionTicket) == true && PositionProfit(positionTicket) < 0) {
-             if(PositionType(positionTicket) == ORDER_TYPE_BUY && trend == UP_TREND) {
-                triggerTicket = getTriggerTicketByPositionTicket(positionTicket);
-                Trade.Close(positionTicket, PositionVolume(positionTicket), CLOSED_BY_H2_OPOSITE_TREND + IntegerToString(triggerTicket));
-             }
-             if(PositionType(positionTicket) == ORDER_TYPE_SELL && trend == DOWN_TREND) {
-                triggerTicket = getTriggerTicketByPositionTicket(positionTicket);
-                Trade.Close(positionTicket, PositionVolume(positionTicket), CLOSED_BY_H2_OPOSITE_TREND + IntegerToString(triggerTicket));
-             }
-         }
-      }
-   }
-}
-//+------------------------------------------------------------------+
-void closeOnRotationArea() {
-
-   long     positionTicket = 0;
-   long     triggerTicket = 0;
-   int      barShift = 0;
-
-   for(int positionTicketId = 0; positionTicketId < ArraySize(positionTickets); positionTicketId++) {
-      positionTicket = positionTickets[positionTicketId];
-
-      if(positionTicket > 0) {
-         if(positionIsOpenState(positionTicket) == true && PositionProfit(positionTicket) < 0) {
-             if(sglTrendBuffer[barShift] == ROTATION_AREA) {
-                triggerTicket = getTriggerTicketByPositionTicket(positionTicket);
-                Trade.Close(positionTicket, PositionVolume(positionTicket), CLOSED_BY_H2_OPOSITE_TREND + IntegerToString(triggerTicket));
-             }
-//             if(PositionType(positionTicket) == ORDER_TYPE_SELL && sglTrendBuffer[barShift] > InpMinTrendStrength) {
+//void closePositionInLoss() {
 //
-//                Trade.Close(positionTicket, PositionVolume(positionTicket), CLOSED_BY_H2_OPOSITE_TREND + IntegerToString(triggerTicket));
-//             }
+//   long     positionTicket = 0;
+//   long     triggerTicket = 0;
+//   int      barShift = 0;
+//
+//   for(int positionTicketId = 0; positionTicketId < ArraySize(positionTickets); positionTicketId++) {
+//      positionTicket = positionTickets[positionTicketId];
+//
+//      if(positionTicket > 0) {
+//         if(positionIsOpenState(positionTicket) == true && PositionProfit(positionTicket) < 0) {
+//
+//            if(PositionType(positionTicket) == ORDER_TYPE_BUY && trend == ROTATION_AREA) {
+//               triggerTicket = getTriggerTicketByPositionTicket(positionTicket);
+//               Trade.Close(positionTicket, PositionVolume(positionTicket), CLOSED_BY_POSITION_LOSS + IntegerToString(triggerTicket));
+//            }
+//            if(PositionType(positionTicket) == ORDER_TYPE_SELL && sglTrendBuffer[barShift] == InpExitValue) {
+//               triggerTicket = getTriggerTicketByPositionTicket(positionTicket);
+//               Trade.Close(positionTicket, PositionVolume(positionTicket), CLOSED_BY_POSITION_LOSS + IntegerToString(triggerTicket));
+//            }
+//         }
+//      }
+//   }
+//}
+//+------------------------------------------------------------------+
+void closeHedgeOnSameTrend() {
+
+   long     positionTicket = 0;
+   long     triggerTicket = 0;
+   int      barShift = 0;
+
+   for(int positionTicketId = 0; positionTicketId < ArraySize(positionTickets); positionTicketId++) {
+      positionTicket = positionTickets[positionTicketId];
+
+      if(positionTicket > 0) {
+         if(positionIsOpenState(positionTicket) == true && PositionProfit(positionTicket) < 0) {
+            if(PositionType(positionTicket) == ORDER_TYPE_BUY && trend == UP_TREND) {
+               triggerTicket = getTriggerTicketByPositionTicket(positionTicket);
+               Trade.Close(positionTicket, PositionVolume(positionTicket), CLOSED_BY_H2_OPOSITE_TREND + IntegerToString(triggerTicket));
+            }
+            if(PositionType(positionTicket) == ORDER_TYPE_SELL && trend == DOWN_TREND) {
+               triggerTicket = getTriggerTicketByPositionTicket(positionTicket);
+               Trade.Close(positionTicket, PositionVolume(positionTicket), CLOSED_BY_H2_OPOSITE_TREND + IntegerToString(triggerTicket));
+            }
          }
       }
    }
 }
+//+------------------------------------------------------------------+
+//void closeOnRotationArea() {
+//
+//   long     positionTicket = 0;
+//   long     triggerTicket = 0;
+//   int      barShift = 0;
+//
+//   for(int positionTicketId = 0; positionTicketId < ArraySize(positionTickets); positionTicketId++) {
+//      positionTicket = positionTickets[positionTicketId];
+//
+//      if(positionTicket > 0) {
+//         if(PositionType(positionTicket) == ORDER_TYPE_SELL) {
+//             if(sglDynamicFastSlowBuffer[barShift] > sglDynamicFastSlowSignalBuffer[barShift]) {
+//                triggerTicket = getTriggerTicketByPositionTicket(positionTicket);
+//                Trade.Close(positionTicket, PositionVolume(positionTicket), "ON_ROTATION" + IntegerToString(triggerTicket));
+//             }
+////             if(PositionType(positionTicket) == ORDER_TYPE_SELL && sglTrendBuffer[barShift] > InpMinTrendStrength) {
+////
+////                Trade.Close(positionTicket, PositionVolume(positionTicket), CLOSED_BY_H2_OPOSITE_TREND + IntegerToString(triggerTicket));
+////             }
+//         }
+//      }
+//   }
+//}
+
+void closeOnLocalHighestHigh() {
+
+   long     positionTicket = 0;
+   long     triggerTicket = 0;
+   int      positionBarIndex = 0;
+   int      candleHistory = 3;
+   int      highestBarIndex = 0;
+   double   highestHighValue = 0;
+
+   for(int positionTicketId = 0; positionTicketId < ArraySize(positionTickets); positionTicketId++) {
+      positionTicket = positionTickets[positionTicketId];
+
+      if(positionTicket > 0) {
+         if(positionIsOpenState(positionTicket) == true) {
+            if(PositionType(positionTicket) == ORDER_TYPE_SELL) {
+               positionBarIndex = iBarShift(Symbol(), PERIOD_CURRENT, PositionOpenTime(positionTicket), true);
+               highestBarIndex = iHighest(Symbol(), PERIOD_CURRENT, MODE_HIGH, candleHistory, positionBarIndex);
+
+               if(highestBarIndex != -1) highestHighValue = iHigh(Symbol(), Period(), highestBarIndex);
+               
+               if(highestHighValue > 0 && Bid() > highestHighValue){
+                  triggerTicket = getTriggerTicketByPositionTicket(positionTicket);
+                  Trade.Close(positionTicket, PositionVolume(positionTicket), "HIGHEST_HIGH_" +  IntegerToString(triggerTicket));
+               }
+            }
+         }
+      }
+   }
+}
+//void closeOnSGLMaxDynamic() {
+//
+//   long     positionTicket = 0;
+//   long     triggerTicket = 0;
+//   int      barShift = 0;
+//
+//   for(int positionTicketId = 0; positionTicketId < ArraySize(positionTickets); positionTicketId++) {
+//      positionTicket = positionTickets[positionTicketId];
+//
+//      if(positionTicket > 0) {
+//         if(positionIsOpenState(positionTicket) == true) {
+//            if(PositionType(positionTicket) == ORDER_TYPE_SELL && sglDynamicFastSlowBuffer[barShift] < InpIND_GjoSeDynamic_SGL_MaxDynamic * -1) {
+//               triggerTicket = getTriggerTicketByPositionTicket(positionTicket);
+//               Trade.Close(positionTicket, PositionVolume(positionTicket), "MAX_TREND_" +  IntegerToString(triggerTicket));
+//            }
+//         }
+//      }
+//   }
+//}
+
+//void closeOnSGLOpositeTrend() {
+//
+//   long     positionTicket = 0;
+//   long     triggerTicket = 0;
+//   int      barShift = 0;
+//
+//   for(int positionTicketId = 0; positionTicketId < ArraySize(positionTickets); positionTicketId++) {
+//      positionTicket = positionTickets[positionTicketId];
+//
+//      if(positionTicket > 0) {
+//         if(positionIsOpenState(positionTicket) == true) {
+//            if(PositionType(positionTicket) == ORDER_TYPE_SELL && sglDynamicFastSlowColorBuffer[barShift] == DYNAMIC_UP_TREND_LOW) {
+//               triggerTicket = getTriggerTicketByPositionTicket(positionTicket);
+//               Trade.Close(positionTicket, PositionVolume(positionTicket), "OP_TREND_" +  IntegerToString(triggerTicket));
+//            }
+//         }
+//      }
+//   }
+//}
+
+
+
+
+//void closeAgainMonsterMove() {
+//
+//   long     positionTicket = 0;
+//   long     triggerTicket = 0;
+//   int      barShift = 0;
+//
+//   for(int positionTicketId = 0; positionTicketId < ArraySize(positionTickets); positionTicketId++) {
+//      positionTicket = positionTickets[positionTicketId];
+//
+//      if(positionTicket > 0) {
+////         if(positionIsHedgeState(positionTicket) == true && positionIsOpenState(positionTicket) == true) {
+//
+////            if(PositionType(positionTicket) == ORDER_TYPE_BUY && dynamicBuffer[barShift] >) {
+////               triggerTicket = getTriggerTicketByPositionTicket(positionTicket);
+////               Trade.Close(positionTicket, PositionVolume(positionTicket), CLOSED_BY_H1_OPTREND + IntegerToString(triggerTicket));
+////            }
+//            if(PositionType(positionTicket) == ORDER_TYPE_SELL && buyDynamicBuffer[barShift] > 100) {
+//               triggerTicket = getTriggerTicketByPositionTicket(positionTicket);
+//               Trade.Close(positionTicket, PositionVolume(positionTicket), CLOSED_BY_H1_OPTREND + IntegerToString(triggerTicket));
+//            }
+////         }
+//      }
+//   }
+//}
+
+void closeHedgeOnOpositeTrend() {
+
+   long     positionTicket = 0;
+   long     triggerTicket = 0;
+   int      barShift = 0;
+
+   for(int positionTicketId = 0; positionTicketId < ArraySize(positionTickets); positionTicketId++) {
+      positionTicket = positionTickets[positionTicketId];
+
+      if(positionTicket > 0) {
+         if(positionIsHedgeState(positionTicket) == true && positionIsOpenState(positionTicket) == true) {
+
+            if(PositionType(positionTicket) == ORDER_TYPE_BUY && trend == DOWN_TREND) {
+               triggerTicket = getTriggerTicketByPositionTicket(positionTicket);
+               Trade.Close(positionTicket, PositionVolume(positionTicket), CLOSED_BY_H1_OPTREND + IntegerToString(triggerTicket));
+            }
+            if(PositionType(positionTicket) == ORDER_TYPE_SELL && trend == UP_TREND) {
+               triggerTicket = getTriggerTicketByPositionTicket(positionTicket);
+               Trade.Close(positionTicket, PositionVolume(positionTicket), CLOSED_BY_H1_OPTREND + IntegerToString(triggerTicket));
+            }
+         }
+      }
+   }
+}
+//+------------------------------------------------------------------+
