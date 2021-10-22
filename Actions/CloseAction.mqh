@@ -4,6 +4,23 @@
 //|                                             https://www.mql5.com |
 //+------------------------------------------------------------------+
 
+void  closeActions(){
+   closePositionGroupInProfit();
+
+   //closePositionInLoss();
+   //      closePositionInProfit();
+   //closeHedgeOnOpositeTrend();
+   //closeH1OnSameTrend();
+   //closeAgainMonsterMove();
+
+   // TODO: neu bearbeiten
+   //closeOnRotationArea();
+   //closeOnLocalHighestHigh();
+   //closeOnSGLMaxDynamic();
+   //closeOnSGLOpositeTrend();
+   // closeOnTrendline();
+}
+
 void closeAllPositions(string pComment = "") {
 
    long positionTicket = 0;
