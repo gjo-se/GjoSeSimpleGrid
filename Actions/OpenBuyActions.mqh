@@ -17,7 +17,7 @@ void openBuyOrderAction() {
    Trade.FillType(SYMBOL_FILLING_FOK);
    Trade.Buy(Symbol(), volume, stopLoss, takeProfit, InpComment);
 
-   cleanPositionTicketsArrayAction(positionTickets);
+   cleanPositionTicketsArrayAction(positionTickets, InpMagicNumber);
 
    addTriggerTicketInPositionGroupsAction();
    addTriggerTicketInDealGroupsAndDealGroupProfitAction();

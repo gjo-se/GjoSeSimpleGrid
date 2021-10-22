@@ -15,9 +15,7 @@
 bool getTriggerSellInSignalState() {
 
    bool signal = false;
-
    int barShift = 0;
-
 
    if(getDownTrendSellState() == true) {
       signal = true;
@@ -26,53 +24,49 @@ bool getTriggerSellInSignalState() {
       // TODO: das geht aber besser, eindeutiger: setNextLevl
       if(getAskBelowNextSellInLevel() == true) {
          signal = true;
+         if(getMaxOpenSellPositionsFilter() == true) signal = false;
+
       }
    }
 
-   // SellInFilter anlegen
+// TriggerSellInFilter anlegen
 
+// Basics
+//      if(getSellIsTradableSellInFilter() == true) signal = false;
+// if(getBuyHedgesAreOpenFilter() == true) signal = false;
+// if(spreadGreaterThanMaxSpreadSellInFilter() == true) signal = false;
 
+// if(getBuyHedgesAreOpenFilter() == true) signal = false;
 
-//   if(getGWLDownDynamicLowerMinSellInFilter() == true) signal = false;
-//   //if(getGWLUpDynamicSellInFilter() == true) signal = false;
-//   if(getBidAboveLastLowSellInFilter() == true) signal = false;
-//   if(getDynamicFastSlowSignalLowestLowHighestHighMinDiffSellInFilter() == true) signal = false;
-//   if(getBidAboveTrendlineSellInFilter() == true) signal = false;
-
-
-
-// A
+// Idikatoren
+// if(getBidIsLowerBollingerLowSellInFilter() == true) signal = false;
+// if(getRSILowerMinRSISellInFilter() == true) signal = false;
+//  MAs
+// if(getDynamicFastSlowLowerMinSellInFilter() == true) signal = false;
+// if(getDynamicFastSlowSignalLowestLowHighestHighMinDiffSellInFilter() == true) signal = false;
 // if(getDynamicFastSlowAndMiddleSlowOnZeroSellInFilter() == true) signal = false;
 // if(getDynamicMiddleSlowIsIncreasingSellInFilter() == true) signal = false;
 // if(getDynamicMiddleSelfGreaterMaxSellInFilter() == true) signal = false;
 // if(getDynamicFastSlowCrossedMiddleSlowFromAboveSellInFilter() == true) signal = false;
-// if(getBidIsLowerBollingerLowSellInFilter() == true) signal = false;
-
-// B
-// if(getGWLTrendStrengthLowerSessionMaxGWLTrendStrengthSellInFilter() == true) signal = false;
-// if(getSGLTrendStrengthLowerSessionMaxSGLTrendStrengthSellInFilter() == true) signal = false;
-// if(getMaxTrendStrengthSellInFilter() == true) signal = false;
-// if(getDynamicFastSlowLowerMinSellInFilter() == true) signal = false;
-// if(getGreenCandleSellInFilter() == true) signal = false;
-// if(getRSILowerMinRSISellInFilter() == true) signal = false;
-
-
-// C
-// if(getSellIsTradableSellInFilter() == true) signal = false;
-// if(getIsTradableSellInFilter() == true) signal = false;
 // if(getDynamicFastSlowIsGreaterMiddleSlowSellInFilter() == true) signal = false;
-// if(getBuyHedgesAreOpenFilter() == true) signal = false;
 
+// Chartpatterns
+// if(getBidAboveTrendlineSellInFilter() == true) signal = false;
+// if(getMonsterUPMoveSellInFilter() == true) signal = false;
 
-// Sonstiges
-// if(spreadGreaterThanMaxSpreadSellInFilter() == true) signal = false;
+// Candles
+// if(getGreenCandleSellInFilter() == true) signal = false;
+// if(getBidAboveLastLowSellInFilter() == true) signal = false;
 // if(getM1GreenCandleSellInFilter() == true) signal = false;
 // if(getM5BigFuseSellInFilter() == true) signal = false;
 // if(getM5GreenCandleSellInFilter() == true) signal = false;
+
+
+// Trend + Strength
 // if(getM1TrendSellInFilter() == true) signal = false;
-// if(getMonsterUPMoveSellInFilter() == true) signal = false;
-// if(getMaxOpenSellPositionsFilter() == true) signal = false;
-// if(getBuyHedgesAreOpenFilter() == true) signal = false;
+// if(getGWLTrendStrengthLowerSessionMaxGWLTrendStrengthSellInFilter() == true) signal = false;
+// if(getSGLTrendStrengthLowerSessionMaxSGLTrendStrengthSellInFilter() == true) signal = false;
+// if(getMaxTrendStrengthSellInFilter() == true) signal = false;
 
    return(signal);
 
@@ -84,14 +78,22 @@ bool getDownTrendSellState() {
    int barShift = 0;
 //   int lastBarShift = 1;
    //double offset = 15;
+   
+   //Print("sellIsTradeable: " + sellIsTradeable);
 
-   if(ArraySize(trendBuffer) > 0) {
-      if(trendBuffer[barShift] == DOWN_TREND) {
-         state = true;
-         //createVLine(__FUNCTION__ + TimeToString(TimeCurrent(), TIME_SECONDS), iTime(Symbol(), PERIOD_CURRENT, barShift), clrRed, 1, STYLE_DASH);
-         if(InpPrintFilter == true) Print("Signal isTrue: " + __FUNCTION__ + " // " + TimeToString(TimeCurrent(), TIME_SECONDS));
-      }
+   if(sellIsTradeable == false) return false;
+
+   if(InpTradeDirection == TRADE_DIRECTION_SHORT || InpTradeDirection == TRADE_DIRECTION_BOTH) {
+      state = true;
    }
+
+//   if(ArraySize(trendBuffer) > 0) {
+//      if(trendBuffer[barShift] == DOWN_TREND) {
+//         state = true;
+//         //createVLine(__FUNCTION__ + TimeToString(TimeCurrent(), TIME_SECONDS), iTime(Symbol(), PERIOD_CURRENT, barShift), clrRed, 1, STYLE_DASH);
+//         if(InpPrintFilter == true) Print("Signal isTrue: " + __FUNCTION__ + " // " + TimeToString(TimeCurrent(), TIME_SECONDS));
+//      }
+//   }
 
    return(state);
 }
@@ -105,6 +107,9 @@ bool getOpenSellPositionsFilter() {
    for(positionTicketsId; positionTicketsId < ArraySize(positionTickets); positionTicketsId++) {
       positionTicket = positionTickets[positionTicketsId];
 
+
+      //Print("getPositionTypeByPositionTicket(positionTicket): " + getPositionTypeByPositionTicket(positionTicket) + " // " + ORDER_TYPE_SELL + " // " + positionIsTriggerState(positionTicket));
+
       if(
          getPositionTypeByPositionTicket(positionTicket) == ORDER_TYPE_SELL &&
          positionIsTriggerState(positionTicket) == true
@@ -112,6 +117,33 @@ bool getOpenSellPositionsFilter() {
       ) {
          filter = true;
       }
+   }
+
+   return (filter);
+}
+
+bool getMaxOpenSellPositionsFilter() {
+
+   bool filter = false;
+   long positionTicket = 0;
+   int  positionsCount = 0;
+
+   int positionTicketsId = 0;
+   for(positionTicketsId; positionTicketsId < ArraySize(positionTickets); positionTicketsId++) {
+      positionTicket = positionTickets[positionTicketsId];
+
+      if(
+         getPositionTypeByPositionTicket(positionTicket) == ORDER_TYPE_SELL
+         //       positionIsTriggerState(positionTicket) == true &&
+//         triggerIsHedgedState(positionTicket) == false
+      ) {
+         positionsCount++;
+
+      }
+   }
+
+   if(positionsCount >= InpMaxOpenSymbolPositions) {
+      filter = true;
    }
 
    return (filter);
@@ -186,11 +218,6 @@ bool getOpenSellPositionsFilter() {
 //bool getSellIsTradableSellInFilter() {
 //
 //   bool filter = false;
-//   int barShift = 0;
-//
-//   //if(sglDynamicFastSlowColorBuffer[barShift] == DYNAMIC_UP_TREND_LOW) {
-//   //   sellIsTradeable = true;
-//   //}
 //
 //   if(sellIsTradeable == false) {
 //      filter = true;
@@ -454,33 +481,7 @@ bool getOpenSellPositionsFilter() {
 //   return (filter);
 //}
 //
-//bool getMaxOpenSellPositionsFilter() {
-//
-//   bool filter = false;
-//   long positionTicket = 0;
-//   int  positionsCount = 0;
-//
-//   int positionTicketsId = 0;
-//   for(positionTicketsId; positionTicketsId < ArraySize(positionTickets); positionTicketsId++) {
-//      positionTicket = positionTickets[positionTicketsId];
-//
-//      if(
-//         getPositionTypeByPositionTicket(positionTicket) == ORDER_TYPE_SELL //&&
-//         //       positionIsTriggerState(positionTicket) == true &&
-////         triggerIsHedgedState(positionTicket) == false
-//      ) {
-//         positionsCount++;
-//
-//      }
-//   }
-//
-//   if(positionsCount > 1) {
-//      filter = true;
-//      //Print("is Sell filter is true" + positionsCount);
-//   }
-//
-//   return (filter);
-//}
+
 //
 //bool getMaxTrendStrengthSellInFilter() {
 //

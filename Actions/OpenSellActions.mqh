@@ -21,13 +21,13 @@ void openSellOrderAction() {
    Trade.FillType(SYMBOL_FILLING_FOK);
    Trade.Sell(Symbol(), volume, stopLoss, takeProfit, InpComment);
    
-   cleanPositionTicketsArrayAction(positionTickets);
+   cleanPositionTicketsArrayAction(positionTickets, InpMagicNumber);
 
    addTriggerTicketInPositionGroupsAction();
    addTriggerTicketInDealGroupsAndDealGroupProfitAction();
    initializeNextSellLevelAction();
 
-   sellIsTradeable = false;
+   //sellIsTradeable = false;
 
 }
 

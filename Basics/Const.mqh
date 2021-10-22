@@ -37,7 +37,7 @@ const int      DOWN_TREND = 2;
 const string   NEXT_BUY_LEVEL = "nextBuyLevel_";
 const int      NEXT_BUY_LEVEL_DEFAULT_VALUE = 0;
 const string   NEXT_SELL_LEVEL = "nextSellLevel_";
-const int      NEXT_SELL_LEVEL_DEFAULT_VALUE = 100;
+const int      NEXT_SELL_LEVEL_DEFAULT_VALUE = 1000;
 const string   NEXT_ENTRY_LEVEL = "nextEntryLevel_";
 
 const string   CLOSED_BY_EQUITY_DD_OUT = "byEquityDD_Out_";

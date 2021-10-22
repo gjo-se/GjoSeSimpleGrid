@@ -38,6 +38,7 @@ long  dealGroupsTmp[][200];
 long  dealGroupProfit[][2];
 long  dealGroupProfitTmp[][2];
 
+bool    printMessages = true;
 int      tickvolumeHandle;
 double   tickVolumeBuffer[];
 //int      gwlTrendHandle;
@@ -49,6 +50,7 @@ double   tickVolumeBuffer[];
 //int      sglTrend;
 //double   sglSessionMaxTrendStrength;
 int      trend;
+bool     buyIsTradeable;
 bool     sellIsTradeable;
 
 //int      equityDDHandle;

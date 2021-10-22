@@ -26,7 +26,8 @@ void initializeGlobalsAction() {
    //gwlSessionMaxTrendStrength = 0;
    //sglSessionMaxTrendStrength = 0;
    trend = ROTATION_AREA;
-   sellIsTradeable = false;
+   buyIsTradeable = true;
+   sellIsTradeable = true;
    dynamicIsHigherMINDynamicBuyInSignalIsTriggert = false;
    fastCrossedSlowFromAboveIndex = 0;
 
