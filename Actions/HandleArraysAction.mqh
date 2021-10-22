@@ -33,6 +33,51 @@ void addTriggerTicketInPositionGroupsAction() {
       }
    }
 }
+
+//+------------------------------------------------------------------+
+//|                                                                  |
+//+------------------------------------------------------------------+
+void WritePositionGroupsData() {
+
+   string directoryName = "ArrayData";
+   string fileName = "PositionGroups.bin";
+   string path = directoryName + "//" + fileName;
+
+   FileDelete(path);
+   cleanPositionGroupsArrayAction();
+   ResetLastError();
+   int handle = FileOpen(path, FILE_READ | FILE_WRITE | FILE_BIN);
+   if(handle != INVALID_HANDLE) {
+      FileSeek(handle, 0, SEEK_SET);
+      FileWriteArray(handle, positionGroups, 0);
+      FileClose(handle);
+   } else
+      Print("Fehler beim Schreiben der Datei" + fileName + "Fehler: " + GetLastError());
+}
+//+------------------------------------------------------------------+
+
+void ReadPositionGroupsData() {
+
+   initializeArray(positionGroups);
+
+   string directoryName = "ArrayData";
+   string fileName = "PositionGroups.bin";
+   string path = directoryName + "//" + fileName;
+
+   ResetLastError();
+   int handle = FileOpen(path, FILE_READ | FILE_BIN);
+   if(handle != INVALID_HANDLE) {
+      FileReadArray(handle, positionGroups);
+      FileClose(handle);
+   } else {
+      string errorMsg = "Fehler beim Lesen der Datei " + fileName + " - Fehler: " + GetLastError();
+      Print(errorMsg);
+      Alert(errorMsg);
+      buyIsTradeable = false;
+      sellIsTradeable = false;
+   }
+}
+//+------------------------------------------------------------------+
 //+------------------------------------------------------------------+
 
 //void addTriggerTicketReEnInPositionGroupsAction(long pTriggerTicket) {
