@@ -60,8 +60,9 @@ bool triggerIsHedgedState(long pPositionTicket) {
    if(positionGroupId != NOT_FOUND) {
       if(
          pPositionTicket == positionGroups[positionGroupId][POSITIONGROUP_ID_TRIGGER_TICKET] &&
-         (positionGroups[positionGroupId][POSITIONGROUP_ID_HEDGE_TICKET] != 0 ||
-          positionGroups[positionGroupId][POSITIONGROUP_ID_HEDGE_ENTRY] != 0)
+         positionGroups[positionGroupId][POSITIONGROUP_ID_HEDGE_TICKET] != 0
+//         (positionGroups[positionGroupId][POSITIONGROUP_ID_HEDGE_TICKET] != 0 ||
+//          positionGroups[positionGroupId][POSITIONGROUP_ID_HEDGE_ENTRY] != 0)
       ) {
          return(true);
       }

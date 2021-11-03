@@ -1,6 +1,6 @@
 /*
 
-   TRendState
+   TrendState
    Copyright 2021, Gregory Jo
    https://www.gjo-se.com
 
@@ -11,50 +11,60 @@
 
 */
 
-void setTrend() {
+// TODO: löschen, wird nicht mehr gebraucht
 
-   int barShift = 0;
-   int gwlTrend = ROTATION_AREA;
-   int sglTrend = ROTATION_AREA;
+//void setTrend() {
+//
+//   int barShift = 0;
+//
+//   setSGLTrend();
+//   setGWLTrend();
+//
+//   if(gwlTrend == UP_TREND && sglTrend == UP_TREND) {
+//      trend = UP_TREND;
+//   } else if(gwlTrend == DOWN_TREND && sglTrend == DOWN_TREND) {
+//      trend = DOWN_TREND;
+//   } else {
+//      trend = ROTATION_AREA;
+//   }
+//}
+//
+//void setSGLTrend() {
+//
+//   int barShift = 0;
+//
+//   if(ArraySize(sglDynamicFastSlowColorBuffer) > 0) {
+//
+//      if(sglDynamicFastSlowColorBuffer[barShift] == DYNAMIC_UP_TREND_NORMAL) {
+//         sglTrend = UP_TREND;
+//      } else if(sglDynamicFastSlowColorBuffer[barShift] == DYNAMIC_DOWN_TREND_NORMAL) {
+//         sglTrend = DOWN_TREND;
+//      } else {
+//         sglTrend = ROTATION_AREA;
+//         //isTradeable = true;
+//      }
+//   } else {
+//      sglTrend = ROTATION_AREA;
+//      //isTradeable = true;
+//   }
+//}
 
-
-
-   if(ArraySize(gwlTrendBuffer) > 0) {
-
-      if(gwlTrendBuffer[barShift] > InpMin_GWL_TrendStrength ) {
-         gwlTrend = UP_TREND;
-      } else if(gwlTrendBuffer[barShift] < InpMin_GWL_TrendStrength * -1) {
-         gwlTrend = DOWN_TREND;
-      } else {
-         gwlTrend = ROTATION_AREA;
-      }
-   } else {
-
-      sglTrend = ROTATION_AREA;
-
-   }
-
-   if(ArraySize(sglTrendBuffer) > 0) {
-
-      if(sglTrendBuffer[barShift] > InpMin_SGL_TrendStrength ) {
-         sglTrend = UP_TREND;
-      } else if(sglTrendBuffer[barShift] < InpMin_SGL_TrendStrength * -1) {
-         sglTrend = DOWN_TREND;
-      } else {
-         sglTrend = ROTATION_AREA;
-      }
-   } else {
-      sglTrend = ROTATION_AREA;
-   }
-
-   if(gwlTrend == UP_TREND && sglTrend == UP_TREND) {
-      trend = UP_TREND;
-   } else if(gwlTrend == DOWN_TREND && sglTrend == DOWN_TREND) {
-      trend = DOWN_TREND;
-   } else {
-      trend = ROTATION_AREA;
-   }
-
-
-}
-//+------------------------------------------------------------------+
+//void setGWLTrend() {
+//
+//   int barShift = 0;
+//
+//   if(ArraySize(gwlDynamicFastSlowColorBuffer) > 0) {
+//
+//      if(gwlDynamicFastSlowColorBuffer[barShift] == DYNAMIC_UP_TREND_NORMAL) {
+//         gwlTrend = UP_TREND;
+//      } else if(gwlDynamicFastSlowColorBuffer[barShift] == DYNAMIC_DOWN_TREND_NORMAL) {
+//         gwlTrend = DOWN_TREND;
+//      } else {
+//         gwlTrend = ROTATION_AREA;
+//         //isTradeable = true;
+//      }
+//   } else {
+//      gwlTrend = ROTATION_AREA;
+//      //isTradeable = true;
+//   }
+//}

@@ -7,13 +7,13 @@
 //+------------------------------------------------------------------+
 //|                                                                  |
 //+------------------------------------------------------------------+
-void resetAbsoluteEquityAction() {
-   maxAbsolutEquityValue = MathMax(NormalizeDouble(AccountInfoDouble(ACCOUNT_EQUITY), 2), InpMaxAbsoluteEquity);
-}
-
-//+------------------------------------------------------------------+
-//|                                                                  |
-//+------------------------------------------------------------------+
-void resetRelativeEquity() {
-   maxRelativeEquityValue = NormalizeDouble(AccountInfoDouble(ACCOUNT_EQUITY), 2);
-}
+//void resetAbsoluteEquityAction() {
+//   maxAbsolutEquityValue = MathMax(NormalizeDouble(AccountInfoDouble(ACCOUNT_EQUITY), 2), InpMaxAbsoluteEquity);
+//}
+//
+////+------------------------------------------------------------------+
+////|                                                                  |
+////+------------------------------------------------------------------+
+//void resetRelativeEquity() {
+//   maxRelativeEquityValue = NormalizeDouble(AccountInfoDouble(ACCOUNT_EQUITY), 2);
+//}

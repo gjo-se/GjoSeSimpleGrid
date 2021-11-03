@@ -23,8 +23,8 @@ long getHedgeSellInSignalState() {
          getPositionTypeByPositionTicket(positionTicket) == ORDER_TYPE_BUY &&
          positionIsTriggerState(positionTicket) == true &&
          triggerIsHedgedState(positionTicket) == false &&
-         hedgeIsHedgedState(positionTicket) == false &&
-         sglTrendBuffer[barShift] == ROTATION_AREA
+         //hedgeIsHedgedState(positionTicket) == false &&
+         trend == DOWN_TREND
       ) {
          returnValue = positionTicket;
       }
