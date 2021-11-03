@@ -4,11 +4,17 @@
 //|                                             https://www.mql5.com |
 //+------------------------------------------------------------------+
 
-void  closeActions(){
+//+------------------------------------------------------------------+
+//|                                                                  |
+//+------------------------------------------------------------------+
+void  closeActions() {
    closePositionGroupInProfit();
+   closeOnLine("closeOnLine");
+
+   alertOnLine();
 
    //closePositionInLoss();
-   //      closePositionInProfit();
+   //closePositionInProfit();
    //closeHedgeOnOpositeTrend();
    //closeH1OnSameTrend();
    //closeAgainMonsterMove();
@@ -19,6 +25,145 @@ void  closeActions(){
    //closeOnSGLMaxDynamic();
    //closeOnSGLOpositeTrend();
    // closeOnTrendline();
+}
+
+void closeOnLine(const string pComment) {
+
+   // TODO:
+   // - CloseFunktionalität auskommentiert
+   // - auf RiskLine erweitern
+   double hLineLevel = getHlineLevelByText(CLOSE_ON_TOUCH_LINE);
+   double trendLineLevel = getTrendlineLevelByText(CLOSE_ON_TOUCH_LINE);
+
+   long     positionTicket = 0;
+   long     triggerTicket = 0;
+   int      barShift = 0;
+
+   if(
+      hLineLevel != EMPTY_VALUE
+      && hLineLevel != 0
+      && trendLineLevel != EMPTY_VALUE
+      && trendLineLevel != 0
+   ) {
+
+      for(int positionTicketId = 0; positionTicketId < ArraySize(positionTickets); positionTicketId++) {
+         positionTicket = positionTickets[positionTicketId];
+
+         if(
+            positionTicket > 0
+            && PositionSymbol(positionTicket) == Symbol()
+            && PositionMagicNumber(positionTicket) == InpMagicNumber
+         ) {
+            if(
+               positionIsOpenState(positionTicket) == true
+            ) {
+
+               //if(PositionType(positionTicket) == ORDER_TYPE_BUY && trend == DOWN_TREND) {
+               //   triggerTicket = getTriggerTicketByPositionTicket(positionTicket);
+               //   Trade.Close(positionTicket, PositionVolume(positionTicket), CLOSED_BY_POSITION_PROFIT + IntegerToString(triggerTicket));
+               //}
+               //if(PositionType(positionTicket) == ORDER_TYPE_SELL && Bid() > MathMin(hLineLevel, trendLineLevel)) {
+               //   triggerTicket = getTriggerTicketByPositionTicket(positionTicket);
+               //   Trade.Close(positionTicket, PositionVolume(positionTicket), CLOSED_BY_HLINE + IntegerToString(triggerTicket));
+               //}
+            }
+         }
+      }
+   }
+}
+
+void alertOnLine() {
+
+   double hLineLevel = getHlineLevelByText(ALERT_ON_TOUCH_LINE);
+   double trendLineLevel = getTrendlineLevelByText(ALERT_ON_TOUCH_LINE);
+   string alertMessage;
+
+   // HLINE from Below
+   if(lastPrice > 0 && lastPrice < hLineLevel && Bid() > hLineLevel) {
+      alertMessage = Symbol() + ": Bid > HLINE " + DoubleToString(Bid());
+      if(alert == true) {
+         Alert(alertMessage);
+         SendNotification(alertMessage);
+         alert = false;
+      }
+   }
+   // HLINE from Above
+   if(lastPrice > 0 && lastPrice > hLineLevel && Bid() < hLineLevel) {
+      alertMessage = Symbol() + ": Bid < HLINE " + DoubleToString(Bid());
+      if(alert == true) {
+         Alert(alertMessage);
+         SendNotification(alertMessage);
+         alert = false;
+      }
+   }
+
+   // TRENDLINE from Below
+   if(lastPrice > 0 && lastPrice < trendLineLevel && Bid() > trendLineLevel) {
+      alertMessage = Symbol() + ": Bid > TRENDLINE " + DoubleToString(Bid());
+      if(alert == true) {
+         Alert(alertMessage);
+         alert = false;
+      }
+   }
+   // TRENDLINE from Above
+   if(lastPrice > 0 && lastPrice > trendLineLevel && Bid() < trendLineLevel) {
+      alertMessage = Symbol() + ": Bid < TRENDLINE " + DoubleToString(Bid());
+      if(alert == true) {
+         Alert(alertMessage);
+         alert = false;
+      }
+   }
+
+   lastPrice = Bid();
+
+}
+
+double getHlineLevelByText(const string pLineText) {
+
+   double hLineLevel = EMPTY_VALUE;
+
+   string objname;
+   for(int i = ObjectsTotal(0, 0, -1) - 1; i >= 0; i--) {
+      objname = ObjectName(0, i);
+      if(ObjectGetInteger(ChartID(), objname, OBJPROP_TYPE) == OBJ_HLINE && ObjectGetString(ChartID(), objname, OBJPROP_TEXT) == pLineText) {
+         hLineLevel = ObjectGetDouble(ChartID(), objname, OBJPROP_PRICE);
+      }
+   }
+   if(hLineLevel != EMPTY_VALUE) {
+      alert = true;
+   } else {
+      if(alert == true) Alert("Hline setzen - " + Symbol() + ": " + pLineText);
+      alert = false;
+   }
+
+   return hLineLevel;
+
+}
+
+double getTrendlineLevelByText(const string pLineText) {
+
+   double trendLineLevel = EMPTY_VALUE;
+
+   string objname;
+   for(int i = ObjectsTotal(0, 0, -1) - 1; i >= 0; i--) {
+      objname = ObjectName(0, i);
+
+      if(
+         ObjectGetInteger(ChartID(), objname, OBJPROP_TYPE) == OBJ_TREND
+         && ObjectGetString(ChartID(), objname, OBJPROP_TEXT) == pLineText
+      ) {
+         trendLineLevel = ObjectGetValueByTime(ChartID(), objname, iTime(Symbol(), PERIOD_CURRENT, 0), 0);
+      }
+   }
+   if(trendLineLevel != EMPTY_VALUE) {
+      alert = true;
+   } else {
+      if(alert == true) Alert("Trendline setzen - " + Symbol() + ": " + pLineText);
+      alert = false;
+   }
+
+   return trendLineLevel;
+
 }
 
 void closeAllPositions(string pComment = "") {
@@ -242,8 +387,8 @@ void closeOnLocalHighestHigh() {
                highestBarIndex = iHighest(Symbol(), PERIOD_CURRENT, MODE_HIGH, candleHistory, positionBarIndex);
 
                if(highestBarIndex != -1) highestHighValue = iHigh(Symbol(), Period(), highestBarIndex);
-               
-               if(highestHighValue > 0 && Bid() > highestHighValue){
+
+               if(highestHighValue > 0 && Bid() > highestHighValue) {
                   triggerTicket = getTriggerTicketByPositionTicket(positionTicket);
                   Trade.Close(positionTicket, PositionVolume(positionTicket), "HIGHEST_HIGH_" +  IntegerToString(triggerTicket));
                }

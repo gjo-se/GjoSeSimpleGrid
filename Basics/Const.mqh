@@ -8,6 +8,8 @@ const double   LOWEST_PRICE = EMPTY_VALUE;
 const double   HIGHEST_PRICE = 0;
 const int      NOT_FOUND = -1;
 
+const string CLOSE_ON_TOUCH_LINE = "CoT";
+const string ALERT_ON_TOUCH_LINE = "AoT";
 //const int      TICK_VOLUME_BUFFER = 0;
 //const int      TREND_BUFFER = 0;
 //const int      EQUITY_DD_BUFFER = 0;
@@ -48,6 +50,7 @@ const string   CLOSED_BY_POSITION_LOSS = "byPositionLossTBy_";
 const string   CLOSED_BY_H1_OPTREND = "byH1OPTrendTBy_";
 const string   CLOSED_BY_H2_ROTATION = "byH2RotationAresTBy_";
 const string   CLOSED_BY_H2_OPOSITE_TREND = "byH2OpositeTrendTBy_";
+const string   CLOSED_BY_HLINE = "byHLineBy_";
 
 const int      INITIAL_VALUE = 0;
 

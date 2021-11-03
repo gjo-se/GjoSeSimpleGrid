@@ -20,11 +20,15 @@ bool getTriggerSellInSignalState() {
    if(getDownTrendSellState() == true) {
       signal = true;
       if(getOpenSellPositionsFilter() == true) signal = false;
+      if(getBidAboveHLineSellInFilter() == true) signal = false;
+      if(getBidAboveTrendLineSellInFilter() == true) signal = false;
 
       // TODO: das geht aber besser, eindeutiger: setNextLevl
       if(getAskBelowNextSellInLevel() == true) {
          signal = true;
-         if(getMaxOpenSellPositionsFilter() == true) signal = false;
+         if(getMaxSymbolRiskSellFilter() == true) signal = false;
+         if(getBidAboveHLineSellInFilter() == true) signal = false;
+         if(getBidAboveTrendLineSellInFilter() == true) signal = false;
 
       }
    }
@@ -122,11 +126,12 @@ bool getOpenSellPositionsFilter() {
    return (filter);
 }
 
-bool getMaxOpenSellPositionsFilter() {
+bool getMaxSymbolRiskSellFilter() {
 
    bool filter = false;
    long positionTicket = 0;
    int  positionsCount = 0;
+   int  maxOpenSymbolPositions = (int)MathRound(InpMaxSymbolRiskPercent / InpMaxPositionRiskPercent);
 
    int positionTicketsId = 0;
    for(positionTicketsId; positionTicketsId < ArraySize(positionTickets); positionTicketsId++) {
@@ -134,21 +139,46 @@ bool getMaxOpenSellPositionsFilter() {
 
       if(
          getPositionTypeByPositionTicket(positionTicket) == ORDER_TYPE_SELL
+         && PositionSymbol(positionTicket) == Symbol()
          //       positionIsTriggerState(positionTicket) == true &&
 //         triggerIsHedgedState(positionTicket) == false
       ) {
          positionsCount++;
-
       }
    }
 
-   if(positionsCount >= InpMaxOpenSymbolPositions) {
+   if(positionsCount >= maxOpenSymbolPositions) {
       filter = true;
    }
 
    return (filter);
 }
 
+bool getBidAboveHLineSellInFilter() {
+
+   bool filter = false;
+   double hLineLevel = getHlineLevelByText(CLOSE_ON_TOUCH_LINE);
+   double levelOffset = InpLevelOffset * Point();
+
+   if((Bid() + levelOffset) > hLineLevel) {
+      filter = true;
+   }
+
+   return (filter);
+}
+
+bool getBidAboveTrendLineSellInFilter() {
+
+   bool filter = false;
+   double trendLineLevel = getTrendlineLevelByText(CLOSE_ON_TOUCH_LINE);
+   double levelOffset = InpLevelOffset * Point();
+
+   if((Bid() + levelOffset) > trendLineLevel) {
+      filter = true;
+   }
+
+   return (filter);
+}
 //#####################################################
 
 //bool getGWLDownDynamicLowerMinSellInFilter() {

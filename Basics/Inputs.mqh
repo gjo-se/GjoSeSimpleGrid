@@ -34,7 +34,6 @@ input ENUM_TIMEFRAMES      InpNewBarTimeframe = PERIOD_M1;
 input bool                 InpShowObjOnVisualMode = false;
 input bool                 InpShowDashboardOnVisualMode = false;
 input ENUM_TRADE_DIRECTION InpTradeDirection = SHORT;
-input int                  InpMaxOpenSymbolPositions = 3;
 
 //sinput string              IND_GWL_Trend;    // ---------- IND_GjoSeDynamic GWL ---------
 //input ENUM_TIMEFRAMES      InpIND_GjoSeDynamic_GWL_Timeframe = PERIOD_H1;
@@ -126,4 +125,14 @@ input bool                 InpUseLocalTime = false;
 //input double               InpEquityDDStep = 2;
 //input double               InpMaxEquityDD_OutAndStop = 30;
 input bool                 InpPrintFilter = true;
+
+input double InpMaxPositionRiskPercent = 1;
+input double InpMaxSymbolRiskPercent = 10;
+
+input double InpPipValueCHFJPY = 7.59;
+input double InpPipValueEURJPY = 7.59;
+input double InpPipValueEURUSD = 8.63;
+input double InpPipValueGBPJPY = 7.59;
+input double InpPipValueGBPUSD = 8.63;
+input double InpPipValueXAUUSD = 8.63;
 //+------------------------------------------------------------------+

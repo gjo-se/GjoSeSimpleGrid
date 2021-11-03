@@ -30,6 +30,10 @@ void initializeGlobalsAction() {
    sellIsTradeable = true;
    dynamicIsHigherMINDynamicBuyInSignalIsTriggert = false;
    fastCrossedSlowFromAboveIndex = 0;
+   alert = true;
+   lastPrice = 0;
+
+
 
 }
 //+------------------------------------------------------------------+

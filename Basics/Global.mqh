@@ -52,6 +52,8 @@ double   tickVolumeBuffer[];
 int      trend;
 bool     buyIsTradeable;
 bool     sellIsTradeable;
+bool     alert;
+double   lastPrice;
 
 //int      equityDDHandle;
 //double   equityDDBuffer[];

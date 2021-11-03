@@ -9,25 +9,58 @@
 
 void openSellOrderAction() {
 
-   double volume  = getTradeSize(InpUseMoneyManagement, InpLotsPerEquity, InpFixedVolume);
+   double volume  = getVolumeByPositionRisk();
 
-   double stopLoss = SellStopLoss(Symbol(), InpStopLoss, Ask());
-   if(stopLoss > 0) AdjustBelowStopLevel(Symbol(), stopLoss);
+   if(volume > 0) {
+      double stopLoss = SellStopLoss(Symbol(), InpStopLoss, Ask());
+      if(stopLoss > 0) AdjustBelowStopLevel(Symbol(), stopLoss);
 
-   //double takeProfit = 0;
-   double takeProfit = SellTakeProfit(Symbol(), InpTakeProfit, Ask());
-   if(takeProfit > 0) AdjustBelowStopLevel(Symbol(), takeProfit);
-   
-   Trade.FillType(SYMBOL_FILLING_FOK);
-   Trade.Sell(Symbol(), volume, stopLoss, takeProfit, InpComment);
-   
-   cleanPositionTicketsArrayAction(positionTickets, InpMagicNumber);
+      //double takeProfit = 0;
+      double takeProfit = SellTakeProfit(Symbol(), InpTakeProfit, Ask());
+      if(takeProfit > 0) AdjustBelowStopLevel(Symbol(), takeProfit);
 
-   addTriggerTicketInPositionGroupsAction();
-   addTriggerTicketInDealGroupsAndDealGroupProfitAction();
-   initializeNextSellLevelAction();
+      Trade.FillType(SYMBOL_FILLING_FOK);
+      Trade.Sell(Symbol(), volume, stopLoss, takeProfit, InpComment);
 
-   //sellIsTradeable = false;
+      cleanPositionTicketsArrayAction(positionTickets, InpMagicNumber);
+
+      addTriggerTicketInPositionGroupsAction();
+      addTriggerTicketInDealGroupsAndDealGroupProfitAction();
+      initializeNextSellLevelAction();
+   }
+}
+
+double getVolumeByPositionRisk() {
+
+   double pipRisk = EMPTY_VALUE;
+   double positionRisk = 0;
+   double maxPositionRiskValue = 0;
+   double volume = 0;
+   double hLineLevel = getHlineLevelByText(CLOSE_ON_TOUCH_LINE);
+   double trendLineLevel = getTrendlineLevelByText(CLOSE_ON_TOUCH_LINE);
+
+   if(hLineLevel > 0 && trendLineLevel > 0) {
+      pipRisk = (MathMin(hLineLevel, trendLineLevel) - Bid()) / Point() / 10 ;
+      if(pipRisk != EMPTY_VALUE) {
+         maxPositionRiskValue = AccountInfoDouble(ACCOUNT_BALANCE) * InpMaxPositionRiskPercent / 100;
+         positionRisk = pipRisk * getPipValueBySymbol(Symbol());
+         volume = NormalizeDouble(maxPositionRiskValue / positionRisk, 2);
+      }
+   }
+
+   return volume;
+}
+
+double getPipValueBySymbol(string pPositionSymbol) {
+
+   if(pPositionSymbol == "CHFJPY") return InpPipValueCHFJPY;
+   if(pPositionSymbol == "EURJPY") return InpPipValueEURJPY;
+   if(pPositionSymbol == "EURUSD") return InpPipValueEURUSD;
+   if(pPositionSymbol == "GBPJPY") return InpPipValueGBPJPY;
+   if(pPositionSymbol == "GBPUSD") return InpPipValueGBPUSD;
+   if(pPositionSymbol == "XAUUSD") return InpPipValueXAUUSD;
+
+   return 0;
 
 }
 
@@ -127,7 +160,7 @@ void openSellOrderAction() {
 //   cleanPositionTicketsArrayAction();
 //
 //   addHedgeHedgeTicketInPositionGroupsAction(pTriggerTicket);
-//   addTicketInDealGroupsAction(pTriggerTicket, InpHedgeHedgeCommentReEntryTriggertBy);   
+//   addTicketInDealGroupsAction(pTriggerTicket, InpHedgeHedgeCommentReEntryTriggertBy);
 //}
 //
 //void openH3SellOrderAction(long pH2Ticket) {
@@ -173,3 +206,4 @@ void openSellOrderAction() {
 //}
 
 
+//+------------------------------------------------------------------+

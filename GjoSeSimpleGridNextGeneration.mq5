@@ -13,6 +13,8 @@
    1.4.0 add GWL
    1.4.1 GWL & SGL
    2.0.0 newVersion, maxSimple
+   2.1   added TrendLines Risk, AlertOnTouch, CloseOnTouch - start DEMO Account
+   
 
    ===============
 
@@ -29,7 +31,7 @@
 #property copyright   "2021, GjoSe"
 #property link        "http://www.gjo-se.com"
 #property description "GjoSe SimpleGrid"
-#define   VERSION "2.0"
+#define   VERSION "2.1"
 #property version VERSION
 #property strict
 
@@ -76,6 +78,7 @@ void OnTick() {
 
    if(NewM1Bar() == true) {
       M1_Bar.Update(Symbol(), PERIOD_M1);
+      alert = true;
    }
 
    closeActions();

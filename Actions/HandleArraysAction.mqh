@@ -52,7 +52,7 @@ void WritePositionGroupsData() {
       FileWriteArray(handle, positionGroups, 0);
       FileClose(handle);
    } else
-      Print("Fehler beim Schreiben der Datei" + fileName + "Fehler: " + GetLastError());
+      Print("Fehler beim Schreiben der Datei" + fileName + "Fehler: " + IntegerToString(GetLastError()));
 }
 //+------------------------------------------------------------------+
 
@@ -70,11 +70,12 @@ void ReadPositionGroupsData() {
       FileReadArray(handle, positionGroups);
       FileClose(handle);
    } else {
-      string errorMsg = "Fehler beim Lesen der Datei " + fileName + " - Fehler: " + GetLastError();
+      string errorMsg = "Fehler beim Lesen der Datei " + fileName + " - Fehler: " + IntegerToString(GetLastError());
       Print(errorMsg);
       Alert(errorMsg);
-      buyIsTradeable = false;
-      sellIsTradeable = false;
+      // TODO: geht so nicht, am Anfang kann er die garnicht habven!!
+//      buyIsTradeable = false;
+//      sellIsTradeable = false;
    }
 }
 //+------------------------------------------------------------------+
