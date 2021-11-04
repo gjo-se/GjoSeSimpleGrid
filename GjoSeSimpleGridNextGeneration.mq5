@@ -14,6 +14,7 @@
    1.4.1 GWL & SGL
    2.0.0 newVersion, maxSimple
    2.1   added TrendLines Risk, AlertOnTouch, CloseOnTouch - start DEMO Account
+   2.1.1 deleted not used Code, comment closePositionGroupInProfit, added FakeObj for Tester, cleaned Inputs
    
 
    ===============
@@ -48,10 +49,10 @@ int OnInit() {
    cleanPositionTicketsArrayAction(positionTickets, InpMagicNumber);
    ReadPositionGroupsData();
 
-   if(showObj(InpShowDashboardOnVisualMode) == true) {
-      createDashboardCanvas();
-      createDashboardAccountTable();
-   }
+//   if(showObj(InpShowDashboardOnVisualMode) == true) {
+//      createDashboardCanvas();
+//      createDashboardAccountTable();
+//   }
 
    criterion_Ptr = new TCustomCriterionArray();
    if(CheckPointer(criterion_Ptr) == POINTER_INVALID) {

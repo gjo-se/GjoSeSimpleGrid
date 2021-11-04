@@ -8,7 +8,7 @@
 //|                                                                  |
 //+------------------------------------------------------------------+
 void  closeActions() {
-   closePositionGroupInProfit();
+//   closePositionGroupInProfit();
    closeOnLine("closeOnLine");
 
    alertOnLine();
