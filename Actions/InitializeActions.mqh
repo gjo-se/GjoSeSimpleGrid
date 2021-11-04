@@ -69,16 +69,16 @@ void initializeIndicatorsAction() {
 //   sglDynamicHandle = iCustom(Symbol(), Period(), "GjoSe\\GjoSeDynamic\\IND_GjoSeDynamic", sglTimeFrame, sglFast, sglMiddle, sglSLOW);
 //   if(sglDynamicHandle == INVALID_HANDLE) Print("Expert: iCustom - sglDynamicHandle - call: Error code=",GetLastError());
 
-   trendHandle = iCustom(
-    Symbol(),
-    Period(),
-    "GjoSe\\GjoSeTrendDetector\\IND_GjoSeTrenddetector",
-    InpIND_GjoSeTrenddetector_FAST_Period,
-    InpIND_GjoSeTrenddetector_Middle_Period,
-    InpIND_GjoSeTrenddetector_Slow_Period,
-    InpIND_GjoSeTrenddetector_GWL_Timeframe
-    );
-   if(trendHandle == INVALID_HANDLE) Print("Expert: iCustom - IND_GjoSeTrenddetector - call: Error code=",GetLastError());
+   //trendHandle = iCustom(
+   // Symbol(),
+   // Period(),
+   // "GjoSe\\GjoSeTrendDetector\\IND_GjoSeTrenddetector",
+   // InpIND_GjoSeTrenddetector_FAST_Period,
+   // InpIND_GjoSeTrenddetector_Middle_Period,
+   // InpIND_GjoSeTrenddetector_Slow_Period,
+   // InpIND_GjoSeTrenddetector_GWL_Timeframe
+   // );
+   //if(trendHandle == INVALID_HANDLE) Print("Expert: iCustom - IND_GjoSeTrenddetector - call: Error code=",GetLastError());
 
 
 

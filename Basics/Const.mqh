@@ -4,6 +4,11 @@
 //|                                             https://www.mql5.com |
 //+------------------------------------------------------------------+
 
+const int TRADE_DIRECTION_NONE = 0;
+const int TRADE_DIRECTION_LONG = 1;
+const int TRADE_DIRECTION_SHORT = 2;
+const int TRADE_DIRECTION_BOTH = 3;
+
 const double   LOWEST_PRICE = EMPTY_VALUE;
 const double   HIGHEST_PRICE = 0;
 const int      NOT_FOUND = -1;

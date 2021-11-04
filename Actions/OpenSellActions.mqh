@@ -36,16 +36,25 @@ double getVolumeByPositionRisk() {
    double positionRisk = 0;
    double maxPositionRiskValue = 0;
    double volume = 0;
-   double hLineLevel = getHlineLevelByText(CLOSE_ON_TOUCH_LINE);
-   double trendLineLevel = getTrendlineLevelByText(CLOSE_ON_TOUCH_LINE);
+   double hLineLevel = 0;
+   double trendLineLevel = 0;
 
    if(hLineLevel > 0 && trendLineLevel > 0) {
+      hLineLevel = getHlineLevelByText(CLOSE_ON_TOUCH_LINE);
+      trendLineLevel = getTrendlineLevelByText(CLOSE_ON_TOUCH_LINE);
       pipRisk = (MathMin(hLineLevel, trendLineLevel) - Bid()) / Point() / 10 ;
-      if(pipRisk != EMPTY_VALUE) {
-         maxPositionRiskValue = AccountInfoDouble(ACCOUNT_BALANCE) * InpMaxPositionRiskPercent / 100;
-         positionRisk = pipRisk * getPipValueBySymbol(Symbol());
-         volume = NormalizeDouble(maxPositionRiskValue / positionRisk, 2);
-      }
+   }
+
+    // Objects not exists in StrategyTester
+   if(MQLInfoInteger(MQL_TESTER) == 1) {
+      trendLineLevel = InpTrendLineStartValue - (InpTrendLineValueDiff / InpTrendLineH1Bars * iBarShift(Symbol(), PERIOD_H1, InpTrendLineStartDate) * Point());
+      pipRisk = (trendLineLevel - Bid()) / Point() / 10 ;
+   }
+
+   if(pipRisk != EMPTY_VALUE) {
+      maxPositionRiskValue = AccountInfoDouble(ACCOUNT_BALANCE) * InpMaxPositionRiskPercent / 100;
+      positionRisk = pipRisk * getPipValueBySymbol(Symbol());
+      volume = NormalizeDouble(maxPositionRiskValue / positionRisk, 2);
    }
 
    return volume;
